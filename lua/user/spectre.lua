@@ -2,14 +2,15 @@ local status_ok, spectre = pcall(require, "spectre")
 if not status_ok then
 	return
 end
-spectre.setup({
-
+spectre.setup {
 	color_devicons = true,
+
 	highlight = {
 		ui = "String",
 		search = "DiffChange",
 		replace = "DiffDelete",
 	},
+
 	mapping = {
 		["toggle_line"] = {
 			map = "t",
@@ -58,6 +59,7 @@ spectre.setup({
 		},
 		-- you can put your mapping here it only use normal mode
 	},
+
 	find_engine = {
 		-- rg is map with finder_cmd
 		["rg"] = {
@@ -105,6 +107,7 @@ spectre.setup({
 			},
 		},
 	},
+
 	replace_engine = {
 		["sed"] = {
 			cmd = "sed",
@@ -118,6 +121,7 @@ spectre.setup({
 			},
 		},
 	},
+
 	default = {
 		find = {
 			--pick one of item in find_engine
@@ -129,7 +133,8 @@ spectre.setup({
 			cmd = "sed",
 		},
 	},
+
 	replace_vim_cmd = "cdo",
 	is_open_target_win = true, --open file on opener window
 	is_insert_mode = false, -- start open panel on is_insert_mode
-})
+}

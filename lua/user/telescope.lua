@@ -4,15 +4,20 @@ if not status_ok then
 end
 
 local actions = require "telescope.actions"
-telescope.load_extension "media_files"
-local icons = require "user.icons"
+
 
 telescope.setup {
   defaults = {
-
-    prompt_prefix = icons.ui.Telescope .. " ",
-    selection_caret = " ",
+    file_sorter = require("telescope.sorters").get_fzf_sorter,
     path_display = { "smart" },
+
+    selection_caret = " ",
+    prompt_prefix = " ",
+    color_devicons = true,
+
+    sorting_strategy = "ascending",
+    prompt_position = "top",
+
     file_ignore_patterns = {
       ".git/",
       "target/",
@@ -85,7 +90,7 @@ telescope.setup {
         ["<C-v>"] = actions.select_vertical,
         ["<C-t>"] = actions.select_tab,
 
-        ["<c-d>"] = require("telescope.actions").delete_buffer,
+        ["<c-d>"] = actions.delete_buffer,
 
         -- ["<C-u>"] = actions.preview_scrolling_up,
         -- ["<C-d>"] = actions.preview_scrolling_down,
@@ -99,8 +104,6 @@ telescope.setup {
         ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-l>"] = actions.complete_tag,
-        ["<C-h>"] = actions.which_key, -- keys from pressing <C-h>
-        ["<esc>"] = actions.close,
       },
 
       n = {
@@ -132,26 +135,24 @@ telescope.setup {
         ["<PageUp>"] = actions.results_scrolling_up,
         ["<PageDown>"] = actions.results_scrolling_down,
 
-        ["?"] = actions.which_key,
       },
     },
   },
-  pickers = {
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
-  },
   extensions = {
-    media_files = {
-      -- filetypes whitelist
-      -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-      filetypes = { "png", "webp", "jpg", "jpeg" },
-      find_cmd = "rg", -- find command (defaults to `fd`)
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+      }
+    },
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+      -- the default case_mode is "smart_case"
     },
   },
 }
 
+-- To get fzf loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+telescope.load_extension 'fzf'
