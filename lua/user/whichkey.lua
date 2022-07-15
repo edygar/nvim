@@ -31,6 +31,7 @@ wk.setup {
     -- override the label used to display some keys. It doesn't effect WK in any other way.
     -- For example:
     -- ["<space>"] = "SPC",
+    ["<leader>"] = "SPC",
     -- ["<cr>"] = "RET",
     -- ["<tab>"] = "TAB",
   },
@@ -277,7 +278,7 @@ wk.register({
 wk.register({
   a = { "<cmd>silent BookmarkAnnotate<cr>", "Annotate" },
   c = { "<cmd>silent BookmarkClear<cr>", "Clear" },
-  t = { "<cmd>silent BookmarkToggle<cr>", "Toggle" },
+  b = { "<cmd>silent BookmarkToggle<cr>", "Toggle" },
   m = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "Harpoon" },
   ["."] = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "Harpoon Next" },
   [","] = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "Harpoon Prev" },
