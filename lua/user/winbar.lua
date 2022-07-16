@@ -1,5 +1,35 @@
 local M = {}
 
+M.winbar_filetype_exclude = {
+  "",
+  "DressingSelect",
+  "Jaq",
+  "NvimTree",
+  "Outline",
+  "Trouble",
+  "aerial",
+  "alpha",
+  "dap-repl",
+  "dapui_breakpoints",
+  "dapui_scopes",
+  "dapui_stacks",
+  "dapui_watches",
+  "dashboard",
+  "fugitive",
+  "harpoon",
+  "help",
+  "lir",
+  "minpacprgs",
+  "neo-tree",
+  "neogitstatus",
+  "packer",
+  "qf",
+  "spectre_panel",
+  "startify",
+  "toggleterm",
+  "whichkey",
+}
+
 local aerial = require "aerial"
 local devicon = require "nvim-web-devicons"
 local icons = require "user.icons"
@@ -58,33 +88,10 @@ local function get_modified()
   return modified == "" and "" or " %#Normal#" .. modified .. "%*"
 end
 
-local disabled_filetypes = {
-  "",
-  "DressingSelect",
-  "NvimTree",
-  "Outline",
-  "Trouble",
-  "aerial",
-  "alpha",
-  "dashboard",
-  "whichkey",
-  "fugitive",
-  "help",
-  "lir",
-  "minpacprgs",
-  "neo-tree",
-  "neogitstatus",
-  "packer",
-  "qf",
-  "spectre_panel",
-  "startify",
-  "toggleterm",
-}
-
 M.winbar = function()
   local win_num = get_win_num()
 
-  for _, ft in pairs(disabled_filetypes) do
+  for _, ft in pairs(M.winbar_filetype_exclude) do
     if vim.bo.filetype == ft then
       return ""
     end
@@ -102,8 +109,8 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   pattern = { "*" },
   callback = function(args)
     local buf = args.buf
-    local buftype = vim.tbl_contains(disabled_filetypes, vim.bo[buf].buftype)
-    local filetype = vim.tbl_contains(disabled_filetypes, vim.bo[buf].filetype)
+    local buftype = vim.tbl_contains(M.winbar_filetype_exclude, vim.bo[buf].buftype)
+    local filetype = vim.tbl_contains(M.winbar_filetype_exclude, vim.bo[buf].filetype)
     if buftype or filetype then
       vim.opt_local.winbar = nil
     else

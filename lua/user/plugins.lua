@@ -173,10 +173,29 @@ return packer.startup(function(use)
   use "mattn/webapi-vim"
 
   -- DAP
-  use "mfussenegger/nvim-dap"
-  use "theHamsta/nvim-dap-virtual-text"
-  use "rcarriga/nvim-dap-ui"
-  use "Pocco81/DAPInstall.nvim"
+  -- use "theHamsta/nvim-dap-virtual-text"
+  -- use "Pocco81/DAPInstall.nvim"
+
+  -- Plugin Graveyard
+  -- use "romgrk/nvim-treesitter-context"
+  -- use "mizlan/iswap.nvim"
+  -- use {'christianchiarulli/nvim-ts-rainbow'}
+  -- use "nvim-telescope/telescope-ui-select.nvim"
+  -- use "nvim-telescope/telescope-file-browser.nvim"
+  -- use 'David-Kunz/cmp-npm' -- doesn't seem to work
+  use { "christianchiarulli/JABS.nvim" }
+  -- use "lunarvim/vim-solidity"
+  -- use "tpope/vim-repeat"
+  -- use "Shatur/neovim-session-manager"
+  -- use "metakirby5/codi.vim"
+  -- use { "nyngwang/NeoZoom.lua", branch = "neo-zoom-original" }
+  -- use "rcarriga/cmp-dap"
+  -- use "filipdutescu/renamer.nvim"
+  -- use "https://github.com/rhysd/conflict-marker.vim"
+  -- use "rebelot/kanagawa.nvim"
+  -- use "unblevable/quick-scope"
+  -- use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
+  -- use "gbprod/cutlass.nvim"
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
