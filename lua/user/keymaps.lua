@@ -21,6 +21,9 @@ keymap("n", "<C-i>", "<C-i>", opts)
 --   command_mode = "c",
 
 -- Normal --
+vim.api.nvim_set_keymap("n", "K", ":lua require('user.keymaps').show_documentation()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<tab>", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", opts)
+
 -- Better window management
 -- Window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -116,6 +119,5 @@ M.show_documentation = function()
     vim.lsp.buf.hover()
   end
 end
-vim.api.nvim_set_keymap("n", "K", ":lua require('user.keymaps').show_documentation()<CR>", opts)
 
 return M
