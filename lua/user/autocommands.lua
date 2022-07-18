@@ -1,11 +1,11 @@
--- vim.api.nvim_create_autocmd({ "User" }, {
---   pattern = { "AlphaReady" },
---   callback = function()
---     vim.cmd [[
---       set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
---     ]]
---   end,
--- })
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = { "AlphaReady" },
+  callback = function()
+    vim.cmd [[
+      set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
+    ]]
+  end,
+})
 
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = { "AlphaReady" },
@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "Jaq", "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "DressingSelect", "tsplayground" },
+  pattern = { "Jaq", "qf", "help", "man", "lspinfo", "spectre_panel", "DressingSelect", "tsplayground" },
   callback = function()
     vim.cmd [[
       nnoremap <silent> <buffer> q :close<CR> 
@@ -69,22 +69,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "lir" },
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-  end,
-})
-
 vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---   callback = function()
---     vim.cmd [[
---       if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
---     ]]
---   end,
--- })
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   callback = function()
@@ -98,23 +83,9 @@ vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
   end,
 })
 
--- require("user.winbar").get_winbar()
-
-if vim.fn.has "nvim-0.8" == 1 then
-  vim.api.nvim_create_autocmd(
-    { "CursorMoved", "CursorHold", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
-    {
-      callback = function()
-        require("user.winbar").get_winbar()
-      end,
-    }
-  )
-end
--- require "user.winbar"
-
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
-    vim.cmd "set formatoptions-=cro"
+    require("user.lsp.handlers").toggle_format_on_save()
   end,
 })
 
@@ -134,6 +105,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
     vim.cmd "hi link illuminatedWord LspReferenceText"
+    require("user.lsp.handlers").enable_format_on_save()
   end,
 })
 

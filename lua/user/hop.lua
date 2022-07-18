@@ -4,7 +4,6 @@ if not status_ok then
 end
 hop.setup()
 
-local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 keymap("n", "s", "<cmd>HopWord<cr>", { silent = true })

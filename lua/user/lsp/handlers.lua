@@ -6,6 +6,7 @@ local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_cmp_ok then
   return
 end
+
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
 
@@ -24,8 +25,8 @@ M.setup = function()
   end
 
   local config = {
-    -- disable virtual text
-    virtual_text = false,
+    -- enables virtual text
+    virtual_text = true,
     -- show signs
     signs = {
       active = signs,
@@ -85,9 +86,8 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "=", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "=", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting_sync({ async = true })' ]]
   vim.api.nvim_buf_set_keymap(bufnr, "n", "H", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
@@ -101,10 +101,16 @@ M.on_attach = function(client, bufnr)
   lsp_highlight_document(client)
   attach_navic(client, bufnr)
 
+  if client.name == "tsserver" or client.name == "sumneko_lua" then
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end
+
   if client.name == "jdt.ls" then
     -- TODO: instantiate capabilities in java file later
     M.capabilities.textDocument.completion.completionItem.snippetSupport = false
     vim.lsp.codelens.refresh()
+
     if JAVA_DAP_ACTIVE then
       require("jdtls").setup_dap { hotcodereplace = "auto" }
       require("jdtls.dap").setup_dap_main_class_configs()
@@ -116,7 +122,7 @@ function M.enable_format_on_save()
   vim.cmd [[
     augroup format_on_save
       autocmd! 
-      autocmd BufWritePre * lua vim.lsp.buf.formatting_sync({ async = true }) 
+      autocmd BufWritePre * lua vim.lsp.buf.format({ async = true }) 
     augroup end
   ]]
   vim.notify "Enabled format on save"

@@ -56,6 +56,13 @@ keymap("n", "]q", "<cmd>QNext<CR>", opts)
 keymap("n", "[j", "<C-o>", opts)
 keymap("n", "]j", "<C-i>", opts)
 
+-- GIT Chunks
+keymap("n", "[g", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", opts)
+keymap("n", "]g", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", opts)
+
+-- Plugins
+keymap("n", "<leader>u", "<cmd>UndotreeToggle<CR>", opts)
+
 -- Visual --
 -- Move text up and down
 keymap("v", "p", '"_dP', opts)
@@ -70,6 +77,7 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 -- Custom
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
 keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
+keymap("n", "<C-q>", "<cmd>:bd<CR>", opts)
 keymap("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], opts)
 keymap(
   "n",
@@ -78,15 +86,7 @@ keymap(
   opts
 )
 
-keymap("n", "-", ":lua require'lir.float'.toggle()<cr>", opts)
--- keymap("n", "<C-\\>", "<cmd>vsplit<cr>", opts)
--- vim.cmd[[nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn]]
--- vim.cmd[[nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN]]
--- keymap("n", "c*", [[/\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn]], opts)
--- keymap("n", "c#", [[?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN]], opts)
--- keymap("n", "gx", [[:execute '!brave ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
--- Change '<CR>' to whatever shortcut you like :)
 
 M.show_documentation = function()
   local filetype = vim.bo.filetype

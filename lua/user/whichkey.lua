@@ -1,9 +1,10 @@
-local status_ok, which_key = pcall(require, "which-key")
+local status_ok, wk = pcall(require, "which-key")
 if not status_ok then
   return
 end
 
-local setup = {
+-- Setup
+wk.setup {
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
     registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -69,45 +70,8 @@ local setup = {
   },
 }
 
-local opts = {
-  mode = "n", -- NORMAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
-}
-
-local m_opts = {
-  mode = "n", -- NORMAL mode
-  prefix = "m",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
-}
-
-local m_mappings = {
-  a = { "<cmd>silent BookmarkAnnotate<cr>", "Annotate" },
-  c = { "<cmd>silent BookmarkClear<cr>", "Clear" },
-  t = { "<cmd>silent BookmarkToggle<cr>", "Toggle" },
-  m = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "Harpoon" },
-  ["."] = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "Harpoon Next" },
-  [","] = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "Harpoon Prev" },
-  l = { "<cmd>lua require('user.bfs').open()<cr>", "Buffers" },
-  j = { "<cmd>silent BookmarkNext<cr>", "Next" },
-  s = { "<cmd>Telescope harpoon marks<cr>", "Search Files" },
-  k = { "<cmd>silent BookmarkPrev<cr>", "Prev" },
-  S = { "<cmd>silent BookmarkShowAll<cr>", "Prev" },
-  -- s = {
-  --   "<cmd>lua require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title=\"bookmarks\", shorten_path=false })<cr>",
-  --   "Show",
-  -- },
-  x = { "<cmd>BookmarkClearAll<cr>", "Clear All" },
-  [";"] = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "Harpoon UI" },
-}
-
-local mappings = {
+-- Normal Mapping
+wk.register({
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
   ["q"] = { " <cmd>QFToggle!<CR>", "Open QuickFix" },
   b = { "<cmd>Telescope buffers<cr>", "Buffers" },
@@ -119,7 +83,6 @@ local mappings = {
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
-  -- ["R"] = { '<cmd>lua require("renamer").rename()<cr>', "Rename" },
   ["z"] = { "<cmd>ZenMode<cr>", "Zen" },
   ["gy"] = "Link",
 
@@ -140,12 +103,6 @@ local mappings = {
     s = { '<cmd>lua require("user.functions").toggle_option("spell")<cr>', "Spell" },
     t = { '<cmd>lua require("user.functions").toggle_tabline()<cr>', "Tabline" },
   },
-
-  -- s = {
-  --   name = "Split",
-  --   s = { "<cmd>split<cr>", "HSplit" },
-  --   v = { "<cmd>vsplit<cr>", "VSplit" },
-  -- },
 
   r = {
     name = "Replace",
@@ -182,6 +139,7 @@ local mappings = {
       "Find files",
     },
     t = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+    s = { "<cmd>lua require('spectre').open()<cr>", "Find Text Pane" },
     h = { "<cmd>Telescope help_tags<cr>", "Help" },
     l = { "<cmd>Telescope resume<cr>", "Last Search" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
@@ -307,22 +265,52 @@ local mappings = {
     p = { "<cmd>TSPlaygroundToggle<cr>", "Playground" },
     r = { "<cmd>TSToggle rainbow<cr>", "Rainbow" },
   },
-}
+}, {
+  mode = "n", -- NORMAL mode
+  prefix = "<leader>",
+  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true, -- use `silent` when creating keymaps
+  noremap = true, -- use `noremap` when creating keymaps
+  nowait = true, -- use `nowait` when creating keymaps
+})
 
-local vopts = {
+-- Visual mapping
+wk.register({
+  ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Comment" },
+  s = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
+}, {
   mode = "v", -- VISUAL mode
   prefix = "<leader>",
   buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
   silent = true, -- use `silent` when creating keymaps
   noremap = true, -- use `noremap` when creating keymaps
   nowait = true, -- use `nowait` when creating keymaps
-}
-local vmappings = {
-  ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Comment" },
-  s = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
-}
+})
 
-which_key.setup(setup)
-which_key.register(mappings, opts)
-which_key.register(vmappings, vopts)
-which_key.register(m_mappings, m_opts)
+-- m mappings
+wk.register({
+  a = { "<cmd>silent BookmarkAnnotate<cr>", "Annotate" },
+  c = { "<cmd>silent BookmarkClear<cr>", "Clear" },
+  t = { "<cmd>silent BookmarkToggle<cr>", "Toggle" },
+  m = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "Harpoon" },
+  ["."] = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "Harpoon Next" },
+  [","] = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "Harpoon Prev" },
+  l = { "<cmd>lua require('user.bfs').open()<cr>", "Buffers" },
+  j = { "<cmd>silent BookmarkNext<cr>", "Next" },
+  s = { "<cmd>Telescope harpoon marks<cr>", "Search Files" },
+  k = { "<cmd>silent BookmarkPrev<cr>", "Prev" },
+  S = { "<cmd>silent BookmarkShowAll<cr>", "Prev" },
+  -- s = {
+  --   "<cmd>lua require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title=\"bookmarks\", shorten_path=false })<cr>",
+  --   "Show",
+  -- },
+  x = { "<cmd>BookmarkClearAll<cr>", "Clear All" },
+  [";"] = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "Harpoon UI" },
+}, {
+  mode = "n", -- NORMAL mode
+  prefix = "m",
+  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true, -- use `silent` when creating keymaps
+  noremap = true, -- use `noremap` when creating keymaps
+  nowait = true, -- use `nowait` when creating keymaps
+})

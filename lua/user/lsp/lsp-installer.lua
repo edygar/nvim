@@ -20,7 +20,6 @@ local servers = {
   "bashls",
   "clangd",
   "rust_analyzer",
-  "taplo",
   "zk@v0.10.1",
 }
 

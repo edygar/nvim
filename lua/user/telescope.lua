@@ -5,71 +5,74 @@ end
 
 local actions = require "telescope.actions"
 
-
 telescope.setup {
   defaults = {
     file_sorter = require("telescope.sorters").get_fzf_sorter,
     path_display = { "smart" },
 
-    selection_caret = " ",
-    prompt_prefix = " ",
+    selection_caret = "\u{e0b1} ",
+    prompt_prefix = "\u{e0b1} ",
     color_devicons = true,
 
     sorting_strategy = "ascending",
-    prompt_position = "top",
+    layout_config = {
+      center = { 
+      prompt_position = "top",
+      }
+    },
 
     file_ignore_patterns = {
-      ".git/",
+      "\\.git/",
       "target/",
       "docs/",
       "vendor/*",
-      "%.lock",
+      "%\\.lock",
       "__pycache__/*",
-      "%.sqlite3",
-      "%.ipynb",
+      "%\\.sqlite3",
+      "%\\.ipynb",
       "node_modules/*",
-      "%.jpg",
-      "%.jpeg",
-      "%.png",
-      "%.svg",
-      "%.otf",
-      "%.ttf",
-      "%.webp",
-      ".dart_tool/",
-      ".github/",
-      ".gradle/",
-      ".idea/",
-      ".settings/",
-      ".vscode/",
+      "%\\.jpg",
+      "%\\.jpeg",
+      "%\\.png",
+      "%\\.svg",
+      "%\\.otf",
+      "%\\.ttf",
+      "%\\.webp",
+      "\\.dart_tool/",
+      "\\.github/",
+      "\\.gradle/",
+      "\\.idea/",
+      "\\.settings/",
+      "\\.vscode/",
       "__pycache__/",
       "build/",
       "env/",
       "gradle/",
       "node_modules/",
-      "%.pdb",
-      "%.dll",
-      "%.class",
-      "%.exe",
-      "%.cache",
-      "%.ico",
-      "%.pdf",
-      "%.dylib",
-      "%.jar",
-      "%.docx",
-      "%.met",
+      "%\\.pdb",
+      "%\\.dll",
+      "%\\.class",
+      "%\\.exe",
+      "%\\.cache",
+      "%\\.ico",
+      "%\\.pdf",
+      "%\\.dylib",
+      "%\\.jar",
+      "%\\.docx",
+      "%\\.met",
       "smalljre_*/*",
-      ".vale/",
-      "%.burp",
-      "%.mp4",
-      "%.mkv",
-      "%.rar",
-      "%.zip",
-      "%.7z",
-      "%.tar",
-      "%.bz2",
-      "%.epub",
-      "%.flac",
-      "%.tar.gz",
+      "\\.vale/",
+      "%\\.burp",
+      "%\\.mp4",
+      "%\\.mkv",
+      "%\\.rar",
+      "%\\.zip",
+      "%\\.7z",
+      "%\\.tar",
+      "%\\.bz2",
+      "%\\.epub",
+      "%\\.flac",
+      "%\\.tar\\.gz",
     },
 
     mappings = {
@@ -104,6 +107,7 @@ telescope.setup {
         ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-l>"] = actions.complete_tag,
+        ["<esc><esc>"] = actions.close,
       },
 
       n = {
@@ -134,14 +138,12 @@ telescope.setup {
 
         ["<PageUp>"] = actions.results_scrolling_up,
         ["<PageDown>"] = actions.results_scrolling_down,
-
       },
     },
   },
   extensions = {
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown {
-      }
+      require("telescope.themes").get_dropdown {},
     },
     fzf = {
       fuzzy = true, -- false will only do exact matching
@@ -155,4 +157,4 @@ telescope.setup {
 
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
-telescope.load_extension 'fzf'
+telescope.load_extension "fzf"
