@@ -1,18 +1,16 @@
-# Neovim from scratch
+# Edygar's Neovim
 
-## Try out this config
+This config set was based on [@ChristianChiarulli](https://github.com/ChristianChiarulli/nvim).
 
-Make sure to remove or move your current `nvim` directory
+# Install
 
 ```
-git clone git@github.com:ChristianChiarulli/nvim.git ~/.config/nvim
+git clone git@github.com:edygar/nvim.git ~/.config/nvim
 ```
 
 Run `nvim` and wait for the plugins to be installed
 
 **NOTE:** (You will notice treesitter pulling in a bunch of parsers the next time you open Neovim)
-
-each video will be associated with a branch so checkout the one you are interested in
 
 ## Get healthy
 
@@ -67,27 +65,4 @@ After moving fonts to `~/.local/share/fonts/`
 
 Run: `$ fc-cache -f -v`
 
-**NOTE:** (If you are seeing boxes without icons, try changing this line from `false` to `true`: [link](https://github.com/ChristianChiarulli/nvim/blob/ac41efa237caf3a498077df19a3f31ca4b35caf3/lua/user/icons.lua#L5))
-
-## Java Debugging and Testing
-
-```
-git clone git@github.com:microsoft/java-debug.git
-cd java-debug/
-./mvnw clean install
-```
-
-```
-git clone git@github.com:microsoft/vscode-java-test.git
-cd vscode-java-test
-npm install
-npm run build-plugin
-```
-
-## Install latest rust-analyzer binary
-
-```
-$ mkdir -p ~/.local/bin
-$ curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
-$ chmod +x ~/.local/bin/rust-analyzer
-```
+**NOTE:** (If you are seeing boxes without icons, try changing this line from `false` to `true`: [link](https://github.com/edygar/nvim/blob/ac41efa237caf3a498077df19a3f31ca4b35caf3/lua/user/icons.lua#L5))

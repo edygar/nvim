@@ -118,14 +118,16 @@ M.on_attach = function(client, bufnr)
   end
 end
 
-function M.enable_format_on_save()
+function M.enable_format_on_save(silent)
   vim.cmd [[
     augroup format_on_save
       autocmd! 
       autocmd BufWritePre * lua vim.lsp.buf.format({ async = true }) 
     augroup end
   ]]
-  vim.notify "Enabled format on save"
+  if not silent then
+    vim.notify "Enabled format on save"
+  end
 end
 
 function M.disable_format_on_save()

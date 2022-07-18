@@ -8,6 +8,7 @@ if not config_status_ok then
   return
 end
 
+local M = {}
 local icons = require "user.icons"
 
 local tree_cb = nvim_tree_config.nvim_tree_callback
@@ -139,3 +140,27 @@ nvim_tree.setup {
     relativenumber = false,
   },
 }
+
+M.open_in_nvim_tree = function(prompt_bufnr)
+  local action_state = require "telescope.actions.state"
+  local Path = require "plenary.path"
+  local actions = require "telescope.actions"
+
+  local entry = action_state.get_selected_entry()[1]
+  local entry_path = Path:new(entry):parent():absolute()
+  actions._close(prompt_bufnr, true)
+  entry_path = Path:new(entry):parent():absolute()
+  entry_path = entry_path:gsub("\\", "\\\\")
+
+  vim.cmd "NvimTreeClose"
+  vim.cmd("NvimTreeOpen " .. entry_path)
+
+  local file_name = nil
+  for s in string.gmatch(entry, "[^/]+") do
+    file_name = s
+  end
+
+  vim.cmd("/" .. file_name)
+end
+
+return M

@@ -7,6 +7,10 @@ local actions = require "telescope.actions"
 
 telescope.setup {
   defaults = {
+    layout_config = {
+      prompt_position = "top",
+    },
+
     file_sorter = require("telescope.sorters").get_fzf_sorter,
     path_display = { "smart" },
 
@@ -15,11 +19,6 @@ telescope.setup {
     color_devicons = true,
 
     sorting_strategy = "ascending",
-    layout_config = {
-      center = { 
-      prompt_position = "top",
-      }
-    },
 
     file_ignore_patterns = {
       "\\.git/",
@@ -80,6 +79,8 @@ telescope.setup {
         ["<C-n>"] = actions.cycle_history_next,
         ["<C-p>"] = actions.cycle_history_prev,
 
+        ["<C-e>"] = require("user.nvim-tree").open_in_nvim_tree,
+
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
 
@@ -95,23 +96,34 @@ telescope.setup {
 
         ["<c-d>"] = actions.delete_buffer,
 
-        -- ["<C-u>"] = actions.preview_scrolling_up,
-        -- ["<C-d>"] = actions.preview_scrolling_down,
+        ["<C-u>"] = actions.preview_scrolling_up,
+        ["<C-d>"] = actions.preview_scrolling_down,
 
         ["<PageUp>"] = actions.results_scrolling_up,
         ["<PageDown>"] = actions.results_scrolling_down,
 
-        -- ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-        ["<Tab>"] = actions.close,
-        -- ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-        ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+
+        --
+        ["<C-q>"] = function(bufnr)
+          actions.send_to_qflist(bufnr)
+          vim.cmd "Telescope quickfix"
+        end,
+        ["<M-q>"] = function(bufnr)
+          actions.send_selected_to_qflist(bufnr)
+          vim.cmd "Telescope quickfix"
+        end,
         ["<C-l>"] = actions.complete_tag,
+
         ["<esc><esc>"] = actions.close,
       },
 
       n = {
+        ["<C-e>"] = require("user.nvim-tree").open_in_nvim_tree,
         ["<esc>"] = actions.close,
+        ["<esc><esc>"] = actions.close,
+        ["<C-c>"] = actions.close,
         ["<CR>"] = actions.select_default,
         ["<C-x>"] = actions.select_horizontal,
         ["<C-v>"] = actions.select_vertical,

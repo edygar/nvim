@@ -47,25 +47,25 @@ return packer.startup(function(use)
   use "numToStr/Comment.nvim" -- Toggle comments with ease
   use "moll/vim-bbye"
   use "hoob3rt/lualine.nvim"
-  use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
-  use { 'fgheng/winbar.nvim' }
+  use { "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" }
+  use { "fgheng/winbar.nvim" }
 
-  use 'vim-scripts/lastpos.vim' -- Passive. Last position jump improved.
+  use "vim-scripts/lastpos.vim" -- Passive. Last position jump improved.
   use "akinsho/toggleterm.nvim"
   use "ahmedkhalf/project.nvim"
   use "lewis6991/impatient.nvim"
   use "lukas-reineke/indent-blankline.nvim"
   use "phaazon/hop.nvim"
-  use 'austintaylor/vim-indentobject' -- indentation as textobj
+  use "austintaylor/vim-indentobject" -- indentation as textobj
 
-  use "tpope/vim-unimpaired"       -- Mappings for e[ e] q[ q] l[ l], etc
-  use "tpope/vim-repeat"           -- Repeat last command
-  use "mbbill/undotree"            -- Visualize your Vim undo tree
-  use "kylechui/nvim-surround"     -- Surround "" ()
-  use "nacro90/numb.nvim"          -- Peek line while :__
-  use "monaqa/dial.nvim"           -- 
+  use "tpope/vim-unimpaired" -- Mappings for e[ e] q[ q] l[ l], etc
+  use "tpope/vim-repeat" -- Repeat last command
+  use "mbbill/undotree" -- Visualize your Vim undo tree
+  use "kylechui/nvim-surround" -- Surround "" ()
+  use "nacro90/numb.nvim" -- Peek line while :__
+  use "monaqa/dial.nvim" --
   use "NvChad/nvim-colorizer.lua"
-  use "windwp/nvim-spectre"        -- Search text panel
+  use "windwp/nvim-spectre" -- Search text panel
   use "kevinhwang91/nvim-bqf"
   use "ThePrimeagen/harpoon"
   use "MattesGroeger/vim-bookmarks"
@@ -98,12 +98,12 @@ return packer.startup(function(use)
   use "is0n/jaq-nvim"
 
   -- Colorschemes
-  use 'Mofiqul/vscode.nvim'
+  use "Mofiqul/vscode.nvim"
   use "folke/tokyonight.nvim"
   use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
   use "lunarvim/onedarker.nvim"
-
+  use "xiyaowong/nvim-transparent"
   -- cmp plugins
   use { "hrsh7th/nvim-cmp" }
   use "hrsh7th/cmp-buffer" -- buffer completions
@@ -161,9 +161,9 @@ return packer.startup(function(use)
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
-  use 'nvim-telescope/telescope-ui-select.nvim' 
+  use "nvim-telescope/telescope-ui-select.nvim"
   use "tom-anders/telescope-vim-bookmarks.nvim"
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
 
   -- Treesitter
   use "nvim-treesitter/nvim-treesitter"
