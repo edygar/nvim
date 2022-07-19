@@ -214,7 +214,7 @@ wk.register({
     u = { "<cmd>LuaSnipUnlinkCurrent<cr>", "Unlink Snippet" },
   },
 
-  S = {
+  s = {
     -- name = "Session",
     -- s = { "<cmd>SaveSession<cr>", "Save" },
     -- l = { "<cmd>LoadLastSession!<cr>", "Load Last" },

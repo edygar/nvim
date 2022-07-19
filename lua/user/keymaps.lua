@@ -82,18 +82,18 @@ keymap("n", "<leader>vr", '<cmd>lua require("user.reload").reload()<CR>', opts)
 keymap("v", "p", '"_dP', opts)
 
 -- Tmux
-keymap("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>", opts);
-keymap("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>", opts);
-keymap("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>", opts);
-keymap("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>", opts);
+keymap("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>", opts)
+keymap("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>", opts)
+keymap("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>", opts)
+keymap("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>", opts)
 -- keymap("n", "<c-\\>", "<cmd>TmuxNavigatePrevious<cr>", opts);
 
 -- Terminal --
 -- Better terminal navigation
-keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
-keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
-keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
-keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+keymap("t", "<C-h>", [[ <C-\><C-N><C-w>h ]], term_opts)
+keymap("t", "<C-j>", [[ <C-\><C-N><C-w>j ]], term_opts)
+keymap("t", "<C-k>", [[ <C-\><C-N><C-w>k ]], term_opts)
+keymap("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], term_opts)
 
 -- Custom
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
