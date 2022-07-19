@@ -30,13 +30,7 @@ if not status_ok then
 end
 
 -- Have packer use a popup window
-packer.init {
-  display = {
-    open_fn = function()
-      return require("packer.util").float { border = "rounded" }
-    end,
-  },
-}
+packer.init {}
 
 -- Install your plugins here
 return packer.startup(function(use)
@@ -48,7 +42,9 @@ return packer.startup(function(use)
   use "moll/vim-bbye"
   use "hoob3rt/lualine.nvim"
   use { "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" }
-  use { "fgheng/winbar.nvim" }
+  use "fgheng/winbar.nvim"
+
+  use "christoomey/vim-tmux-navigator" --  Seamless navigation between vim and tmux windows
 
   use "vim-scripts/lastpos.vim" -- Passive. Last position jump improved.
   use "akinsho/toggleterm.nvim"
@@ -81,10 +77,6 @@ return packer.startup(function(use)
   -- UI
   use "stevearc/dressing.nvim"
   use "ghillb/cybu.nvim"
-  use {
-    "SmiteshP/nvim-navic",
-    requires = "neovim/nvim-lspconfig",
-  }
   use "tversteeg/registers.nvim"
   use "rcarriga/nvim-notify"
   use "kyazdani42/nvim-web-devicons"
@@ -143,8 +135,9 @@ return packer.startup(function(use)
     end,
   }
   use "RRethy/vim-illuminate"
-  -- use "stevearc/aerial.nvim"
+  use "stevearc/aerial.nvim"
   use "j-hui/fidget.nvim"
+
   -- TODO: set this up
   -- use "rmagatti/goto-preview"
   use "nvim-lua/lsp_extensions.nvim"

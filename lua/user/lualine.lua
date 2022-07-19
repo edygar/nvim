@@ -213,7 +213,7 @@ local spaces = {
   cond = hide_in_width_100,
 }
 
-local lanuage_server = {
+local language_server = {
   function()
     local buf_ft = vim.bo.filetype
     local ui_filetypes = {
@@ -318,7 +318,7 @@ lualine.setup {
     -- lualine_c = {},
     lualine_c = { current_signature },
     -- lualine_x = { diff, spaces, "encoding", filetype },
-    lualine_x = { diff, lanuage_server, spaces, filetype },
+    lualine_x = { diff, "lsp_progress", language_server, spaces, filetype },
     lualine_y = { progress },
     lualine_z = { location },
   },

@@ -42,13 +42,14 @@ local options = {
   foldenable = false,                     -- disable folding by default
   foldmethod = "indent",                   -- fold based on indent
 }
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 -- vim.opt.fillchars.eob = " "
 -- vim.opt.fillchars = vim.opt.fillchars + "vertleft: "
 -- vim.opt.fillchars = vim.opt.fillchars + "vertright: "
 vim.opt.fillchars = vim.opt.fillchars + 'eob: '
-
+vim.g.tmux_navigator_no_mappings = true
 vim.opt.shortmess:append "c"
 
 for k, v in pairs(options) do
