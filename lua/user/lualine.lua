@@ -315,9 +315,7 @@ lualine.setup {
   sections = {
     lualine_a = { mode, branch },
     lualine_b = { diagnostics },
-    -- lualine_c = {},
     lualine_c = { current_signature },
-    -- lualine_x = { diff, spaces, "encoding", filetype },
     lualine_x = { diff, "lsp_progress", language_server, spaces, filetype },
     lualine_y = { progress },
     lualine_z = { location },

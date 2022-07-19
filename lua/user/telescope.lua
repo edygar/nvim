@@ -105,7 +105,6 @@ telescope.setup {
         ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
 
-        --
         ["<C-q>"] = function(bufnr)
           actions.send_to_qflist(bufnr)
           vim.cmd "Telescope quickfix"
@@ -114,7 +113,6 @@ telescope.setup {
           actions.send_selected_to_qflist(bufnr)
           vim.cmd "Telescope quickfix"
         end,
-        ["<C-l>"] = actions.complete_tag,
 
         ["<esc><esc>"] = actions.close,
       },

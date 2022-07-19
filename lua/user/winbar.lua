@@ -1,7 +1,7 @@
 local M = {}
 
 M.winbar_filetype_exclude = {
-  "",
+  "Cybu",
   "DressingSelect",
   "Jaq",
   "NvimTree",
@@ -20,7 +20,6 @@ M.winbar_filetype_exclude = {
   "fugitive",
   "harpoon",
   "help",
-  "lir",
   "minpacprgs",
   "neo-tree",
   "neogitstatus",
@@ -111,10 +110,17 @@ end
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   pattern = { "*" },
   callback = function(args)
-    local buf = args.buf
-    local buftype = vim.tbl_contains(M.winbar_filetype_exclude, vim.bo[buf].buftype)
-    local filetype = vim.tbl_contains(M.winbar_filetype_exclude, vim.bo[buf].filetype)
-    if buftype or filetype then
+    local buf = vim.bo[args.buf]
+
+    if buf.filetype == "" then
+      vim.opt_local.winbar = nil
+      return
+    end
+
+    local exluded_filetype = vim.tbl_contains(M.winbar_filetype_exclude, buf.filetype)
+    local excluded_buftype = vim.tbl_contains(M.winbar_filetype_exclude, buf.buftype)
+
+    if exluded_filetype or excluded_buftype then
       vim.opt_local.winbar = nil
     else
       vim.opt_local.winbar = "%{%v:lua.require('user.winbar').winbar()%}"

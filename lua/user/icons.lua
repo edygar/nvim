@@ -91,7 +91,8 @@ if vim.fn.has "mac" == 1 or vim.g.use_nerd_icons then
       Note = "",
       BookMark = "",
       Pencil = "",
-      ChevronRight = "\u{e0b1}",
+      ChevronLeft = "",
+      ChevronRight = "",
       Table = "",
       Calendar = "",
       CloudDownload = "",
@@ -213,7 +214,7 @@ else
       Tag = " ",
       Watch = " ",
       Smiley = " ",
-      Package = " "
+      Package = " ",
     },
   }
 end
