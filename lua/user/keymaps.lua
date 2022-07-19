@@ -61,6 +61,14 @@ keymap("n", "]j", "<C-i>", opts)
 keymap("n", "[g", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", opts)
 keymap("n", "]g", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", opts)
 
+-- Harpoon
+keymap("n", "[h", '<cmd>lua require("harpoon.ui").nav_prev()<cr>', opts)
+keymap("n", "]h", '<cmd>lua require("harpoon.ui").nav_next()<cr>', opts)
+
+-- Bookmarrks
+keymap("n", "[k", "<cmd>silent BookmarkPrev<cr>", opts)
+keymap("n", "]k", "<cmd>silent BookmarkShowAll<cr>", opts)
+
 -- Plugins
 keymap("n", "<leader>u", "<cmd>UndotreeToggle<CR>", opts)
 
