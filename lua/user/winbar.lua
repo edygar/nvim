@@ -18,6 +18,7 @@ M.winbar_filetype_exclude = {
   "dapui_watches",
   "dashboard",
   "fugitive",
+  "gitcommit",
   "harpoon",
   "help",
   "minpacprgs",
@@ -51,7 +52,7 @@ local function format_symbols(symbols, depth, separator, icons_enabled)
 
   for _, symbol in ipairs(symbols) do
     if icons_enabled then
-      table.insert(parts, "%#Aerial" .. symbol.kind .. "Icon#" .. symbol.icon .. " %*" .. symbol.name)
+      table.insert(parts, "%#Aerial" .. symbol.kind .. "Icon#" .. symbol.icon .. "%*" .. symbol.name)
     else
       table.insert(parts, symbol.name)
     end

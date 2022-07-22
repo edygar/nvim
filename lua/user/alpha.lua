@@ -22,7 +22,7 @@ dashboard.section.buttons.val = {
     icons.git.Repo .. " Find project",
     ":lua require('telescope').extensions.projects.projects()<CR>"
   ),
-  dashboard.button("r", icons.ui.History .. " Recent files", ":Telescope oldfiles <CR>"),
+  dashboard.button("r", icons.ui.History .. " Recent files", ":Telescope oldfiles cwd_only=true<CR>"),
   dashboard.button("t", icons.ui.List .. " Find text", ":Telescope live_grep <CR>"),
   dashboard.button("s", icons.ui.SignIn .. " Find Session", ":silent Autosession search <CR>"),
   dashboard.button("c", icons.ui.Gear .. " Config", ":e ~/.config/nvim/init.lua <CR>"),

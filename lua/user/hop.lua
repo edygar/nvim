@@ -6,5 +6,5 @@ hop.setup()
 
 local keymap = vim.api.nvim_set_keymap
 
-keymap("n", "s", "<cmd>HopWord<cr>", { silent = true })
-keymap("v", "s", "<cmd>HopWord<cr>", { silent = true })
+keymap("n", "<leader><leader>", "<cmd>HopWord<cr>", { silent = true })
+keymap("v", "<leader><leader>", "<cmd>HopWord<cr>", { silent = true })

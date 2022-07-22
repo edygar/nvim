@@ -141,7 +141,7 @@ local branch = {
   icons_enabled = true,
   icon = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#",
   -- color = "Constant",
-  colored = false,
+  colored = true,
 }
 
 local progress = {
@@ -306,7 +306,7 @@ lualine.setup {
   options = {
     globalstatus = true,
     icons_enabled = true,
-    theme = "vscode",
+    theme = "auto",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = { "alpha", "dashboard" },

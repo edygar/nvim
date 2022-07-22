@@ -17,6 +17,7 @@ null_ls.setup {
       extra_filetypes = { "toml", "solidity" },
     },
     formatting.black.with { extra_args = { "--fast" } },
+    formatting.eslint_d,
     formatting.stylua,
     formatting.shfmt,
     formatting.google_java_format,
@@ -43,7 +44,7 @@ local unwrap = {
             col = col,
             end_col = end_col,
             source = "unwrap",
-            message = "hey " .. os.getenv("USER") .. ", don't forget to handle this" ,
+            message = "hey " .. os.getenv "USER" .. ", don't forget to handle this",
             severity = 2,
           })
         end

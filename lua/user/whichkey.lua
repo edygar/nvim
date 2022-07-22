@@ -134,13 +134,17 @@ wk.register({
       "<cmd>Telescope find_files<cr>",
       "Find files",
     },
+    F = {
+      "<cmd>Telescope find_files hidden=true no_ignore=true,<cr>",
+      "Find files without ignore",
+    },
     t = { "<cmd>Telescope live_grep<cr>", "Find Text" },
     T = { "<cmd>lua require('spectre').open()<cr>", "Find Text Pane" },
     h = { "<cmd>Telescope help_tags<cr>", "Help" },
     l = { "<cmd>Telescope resume<cr>", "Last Search" },
     j = { "<cmd>Telescope jumplist<cr>", "Jumplist Search" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
+    r = { "<cmd>Telescope oldfiles cwd_only=true<cr>", "Recent File" },
     R = { "<cmd>Telescope registers<cr>", "Registers" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
@@ -162,9 +166,9 @@ wk.register({
       "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
       "Undo Stage Hunk",
     },
-    o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+    o = { "<cmd>lua require('user.delta-git-commmits').git_status()<cr>", "Open changed file" },
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-    c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+    c = { "<cmd>lua require('user.delta-git-commmits').git_commits()<cr>", "Checkout commit" },
     d = {
       "<cmd>Gitsigns diffthis HEAD<cr>",
       "Diff",
@@ -183,6 +187,7 @@ wk.register({
   l = {
     name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+    A = { "<cmd>AerialToggle<cr>", "Toggle aerial" },
     c = { "<cmd>lua require('user.lsp').server_capabilities()<cr>", "Get Capabilities" },
     d = { "<cmd>TroubleToggle<cr>", "Diagnostics" },
     w = {

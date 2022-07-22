@@ -41,7 +41,6 @@ return packer.startup(function(use)
   use "numToStr/Comment.nvim" -- Toggle comments with ease
   use "moll/vim-bbye"
   use "hoob3rt/lualine.nvim"
-  use { "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" }
   use "fgheng/winbar.nvim"
 
   use "christoomey/vim-tmux-navigator" --  Seamless navigation between vim and tmux windows
@@ -84,18 +83,13 @@ return packer.startup(function(use)
   use "goolord/alpha-nvim"
   use "folke/which-key.nvim"
   use "folke/zen-mode.nvim"
-  use "karb94/neoscroll.nvim"
   use "folke/todo-comments.nvim"
   use "andymass/vim-matchup"
   use "is0n/jaq-nvim"
 
   -- Colorschemes
-  use "Mofiqul/vscode.nvim"
-  use "folke/tokyonight.nvim"
-  use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
-  use "lunarvim/darkplus.nvim"
   use "lunarvim/onedarker.nvim"
-  use "xiyaowong/nvim-transparent"
+
   -- cmp plugins
   use { "hrsh7th/nvim-cmp" }
   use "hrsh7th/cmp-buffer" -- buffer completions
@@ -106,11 +100,6 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-emoji"
   use "zbirenbaum/copilot-cmp"
   use "hrsh7th/cmp-nvim-lua"
-  use {
-    "tzachar/cmp-tabnine",
-    run = "./install.sh",
-    requires = "hrsh7th/nvim-cmp",
-  }
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
@@ -124,16 +113,7 @@ return packer.startup(function(use)
   use "ray-x/lsp_signature.nvim"
   use "b0o/SchemaStore.nvim"
   use "folke/trouble.nvim"
-  -- use "github/copilot.vim"
-  use {
-    "zbirenbaum/copilot.lua",
-    event = { "VimEnter" },
-    config = function()
-      vim.defer_fn(function()
-        require "user.copilot"
-      end, 100)
-    end,
-  }
+  use "github/copilot.vim"
   use "RRethy/vim-illuminate"
   use "stevearc/aerial.nvim"
   use "j-hui/fidget.nvim"
@@ -141,7 +121,6 @@ return packer.startup(function(use)
   -- TODO: set this up
   -- use "rmagatti/goto-preview"
   use "nvim-lua/lsp_extensions.nvim"
-  use "christianchiarulli/lsp-inlay-hints"
 
   -- Java
   use "mfussenegger/nvim-jdtls"
@@ -180,13 +159,11 @@ return packer.startup(function(use)
   -- use "Pocco81/DAPInstall.nvim"
 
   -- Plugin Graveyard
-  -- use "romgrk/nvim-treesitter-context"
   -- use "mizlan/iswap.nvim"
   -- use {'christianchiarulli/nvim-ts-rainbow'}
   -- use "nvim-telescope/telescope-ui-select.nvim"
   -- use "nvim-telescope/telescope-file-browser.nvim"
   -- use 'David-Kunz/cmp-npm' -- doesn't seem to work
-  use { "christianchiarulli/JABS.nvim" }
   -- use "lunarvim/vim-solidity"
   -- use "tpope/vim-repeat"
   -- use "Shatur/neovim-session-manager"

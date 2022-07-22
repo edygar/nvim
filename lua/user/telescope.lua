@@ -151,6 +151,12 @@ telescope.setup {
         ["<PageDown>"] = actions.results_scrolling_down,
       },
     },
+
+    pickers = {
+      oldfiles = {
+        cwd_only = true,
+      },
+    },
   },
   extensions = {
     ["ui-select"] = {

@@ -15,7 +15,6 @@ local opts = {
 local mappings = {
   L = {
     name = "Rust",
-    h = { "<cmd>RustToggleInlayHints<Cr>", "Toggle Hints" },
     r = { "<cmd>RustRunnables<Cr>", "Runnables" },
     -- r = { "<cmd>lua _CARGO_RUN()<cr>", "Cargo Run" },
     t = { "<cmd>lua _CARGO_TEST()<cr>", "Cargo Test" },
@@ -32,8 +31,6 @@ local mappings = {
     },
     -- S = { "<cmd>RustSSR<Cr>", "SSR" },
     -- o = { "<cmd>RustOpenExternalDocs<Cr>", "Open External Docs" },
-    -- h = { "<cmd>RustSetInlayHints<Cr>", "Enable Hints" },
-    -- H = { "<cmd>RustDisableInlayHints<Cr>", "Disable Hints" },
     -- a = { "<cmd>RustHoverActions<Cr>", "Hover Actions" },
     -- a = { "<cmd>RustHoverRange<Cr>", "Hover Range" },
     -- j = { "<cmd>RustMoveItemDown<Cr>", "Move Item Down" },
@@ -51,7 +48,6 @@ vim.notify = function(msg, ...)
 
   notify_filter(msg, ...)
 end
-
 
 local Terminal = require("toggleterm.terminal").Terminal
 local vertical_term = Terminal:new {
