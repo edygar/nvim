@@ -14,21 +14,6 @@ local function contains(t, value)
   return false
 end
 
-vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#E8AB53", bg = "#32363e" })
-vim.api.nvim_set_hl(0, "SLTermIcon", { fg = "#b668cd", bg = "#282c34" })
-vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#abb2bf", bg = "#32363e", bold = false })
--- vim.api.nvim_set_hl(0, "SLProgress", { fg = "#D7BA7D", bg = "#252525" })
-vim.api.nvim_set_hl(0, "SLProgress", { fg = "#abb2bf", bg = "#32363e" })
-vim.api.nvim_set_hl(0, "SLFG", { fg = "#abb2bf", bg = "#282c34" })
-vim.api.nvim_set_hl(0, "SLSeparator", { fg = "#6b727f", bg = "#282c34" })
-vim.api.nvim_set_hl(0, "SLLSP", { fg = "#5e81ac", bg = "#282c34" })
-vim.api.nvim_set_hl(0, "SLCopilot", { fg = "#6CC644", bg = "#282c34" })
--- darkerplus
--- vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#E8AB53", bg = "#303030" })
--- vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#abb2bf", bg = "#303030", bold = false })
--- -- vim.api.nvim_set_hl(0, "SLProgress", { fg = "#D7BA7D", bg = "#252525" })
--- vim.api.nvim_set_hl(0, "SLProgress", { fg = "#abb2bf", bg = "#303030" })
--- vim.api.nvim_set_hl(0, "SLSeparator", { fg = "#545862", bg = "#252525" })
 local mode_color = {
   n = "#519fdf",
   i = "#c18a56",
@@ -94,7 +79,7 @@ local diagnostics = {
 
 local diff = {
   "diff",
-  colored = false,
+  colored = true,
   symbols = { added = icons.git.Add .. " ", modified = icons.git.Mod .. " ", removed = icons.git.Remove .. " " }, -- changes diff symbols
   cond = hide_in_width_60,
   separator = "%#SLSeparator#" .. "│ " .. "%*",
@@ -172,17 +157,6 @@ local current_signature = {
   cond = hide_in_width_100,
   padding = 0,
 }
-
--- cool function for progress
--- local progress = function()
---   local current_line = vim.fn.line "."
---   local total_lines = vim.fn.line "$"
---   local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
---   local line_ratio = current_line / total_lines
---   local index = math.ceil(line_ratio * #chars)
---   -- return chars[index]
---   return "%#SLProgress#" .. chars[index] .. "%*"
--- end
 
 local spaces = {
   function()
@@ -302,6 +276,18 @@ local location = {
   end,
 }
 
+local tabs = {
+  "tabs",
+  max_length = vim.o.columns / 3, -- Maximum width of tabs component.
+  mode = 0, -- 0: Shows tab_nr
+
+  tabs_color = {
+    -- Same values as the general color option can be used here.
+    active = { fg = "#FFF", bg = "#24282E" }, -- Color for active tab.
+    inactive = { fg = "#515964", bg = "#24282E" }, -- Color for inactive tab.
+  },
+}
+
 lualine.setup {
   options = {
     globalstatus = true,
@@ -313,7 +299,7 @@ lualine.setup {
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = { mode, branch },
+    lualine_a = { mode, branch, tabs },
     lualine_b = { diagnostics },
     lualine_c = { current_signature },
     lualine_x = { diff, "lsp_progress", language_server, spaces, filetype },

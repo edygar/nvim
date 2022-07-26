@@ -19,6 +19,7 @@ null_ls.setup {
     formatting.black.with { extra_args = { "--fast" } },
     formatting.eslint_d,
     formatting.stylua,
+    diagnostics.eslint_d,
     formatting.shfmt,
     formatting.google_java_format,
     diagnostics.flake8,

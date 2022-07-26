@@ -94,7 +94,7 @@ telescope.setup {
         ["<C-v>"] = actions.select_vertical,
         ["<C-t>"] = actions.select_tab,
 
-        ["<c-d>"] = actions.delete_buffer,
+        ["<c-x>"] = actions.delete_buffer,
 
         ["<C-u>"] = actions.preview_scrolling_up,
         ["<C-d>"] = actions.preview_scrolling_down,
@@ -123,7 +123,7 @@ telescope.setup {
         ["<esc><esc>"] = actions.close,
         ["<C-c>"] = actions.close,
         ["<CR>"] = actions.select_default,
-        ["<C-x>"] = actions.select_horizontal,
+        ["<C-x>"] = actions.delete_buffer,
         ["<C-v>"] = actions.select_vertical,
         ["<C-t>"] = actions.select_tab,
 

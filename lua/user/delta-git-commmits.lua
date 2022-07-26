@@ -50,8 +50,12 @@ M.git_status = function(opts)
           "-c",
           "core.pager=delta",
           "-c",
+          "delta.pager=less",
+          "-c",
           "delta.side-by-side=false",
           "diff",
+          "HEAD",
+          "--",
           entry.value,
         }
       end,
