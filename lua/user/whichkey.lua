@@ -213,7 +213,6 @@ wk.register({
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     R = { "<cmd>TroubleToggle lsp_references<cr>", "References" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-    e = { "mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F", "Eslint Autofix" },
     S = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
