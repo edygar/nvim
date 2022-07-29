@@ -15,15 +15,15 @@ dashboard.section.header.val = {
   [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 }
 dashboard.section.buttons.val = {
-  dashboard.button("f", icons.documents.Files .. " Find file", ":Telescope find_files <CR>"),
+  dashboard.button("f", icons.documents.Files .. " Find file", ":UserTelescope find_files <CR>"),
   dashboard.button("e", icons.ui.NewFile .. " New file", ":ene <BAR> startinsert <CR>"),
   dashboard.button(
     "p",
     icons.git.Repo .. " Find project",
     ":lua require('telescope').extensions.projects.projects()<CR>"
   ),
-  dashboard.button("r", icons.ui.History .. " Recent files", ":Telescope oldfiles cwd_only=true<CR>"),
-  dashboard.button("t", icons.ui.List .. " Find text", ":Telescope live_grep <CR>"),
+  dashboard.button("r", icons.ui.History .. " Recent files", ":UserTelescope oldfiles cwd_only=true<CR>"),
+  dashboard.button("t", icons.ui.List .. " Find text", ":UserTelescope live_grep <CR>"),
   dashboard.button("s", icons.ui.SignIn .. " Find Session", ":silent Autosession search <CR>"),
   dashboard.button("c", icons.ui.Gear .. " Config", ":e ~/.config/nvim/init.lua <CR>"),
   dashboard.button("u", icons.ui.CloudDownload .. " Update", ":PackerSync<CR>"),

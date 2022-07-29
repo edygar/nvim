@@ -15,6 +15,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
+end
+
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd [[
   augroup packer_user_config
@@ -23,43 +29,57 @@ vim.cmd [[
   augroup end
 ]]
 
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-  return
-end
-
 -- Have packer use a popup window
 packer.init {}
 
 -- Install your plugins here
-return packer.startup(function(use)
-  -- My plugins here
-  use "wbthomason/packer.nvim" -- Have packer manage itself
-  use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
-  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
-  use "numToStr/Comment.nvim" -- Toggle comments with ease
-  use "moll/vim-bbye"
-  use "hoob3rt/lualine.nvim"
-  use "fgheng/winbar.nvim"
+local falsy = function()
+  return false
+end
 
-  use "christoomey/vim-tmux-navigator" --  Seamless navigation between vim and tmux windows
+return packer.startup(function(_use)
+  local essential = true
+  local use = function(opts)
+    if type(opts) == "string" then
+      opts = { opts }
+    end
+
+    if not essential then
+      opts["cond"] = falsy
+    end
+
+    _use(opts)
+  end
+
+  use { "lewis6991/impatient.nvim" }
+  use { "wbthomason/packer.nvim" } -- Have packer manage itself
+  use { "nvim-lua/plenary.nvim" } -- Useful lua functions used ny lots of plugins
+  use { "numToStr/Comment.nvim" } -- Toggle comments with ease
+  use { "christoomey/vim-tmux-navigator" } --  Seamless navigation between vim and tmux windows
+  use { "phaazon/hop.nvim" }
+  use { "moll/vim-bbye" }
+  use { "austintaylor/vim-indentobject" } -- indentation as textobj
+  use { "tpope/vim-unimpaired" } -- Mappings for e[ e] q[ q] l[ l], etc
+  use { "tpope/vim-repeat" } -- Repeat last command
+  use { "kylechui/nvim-surround" } -- Surround "" ()
+  use { "nacro90/numb.nvim" } -- Peek line while :__
+  use { "NvChad/nvim-colorizer.lua" }
+  use { "RRethy/vim-illuminate" }
+
+  if MINIMAL then
+    essential = false
+  end
+
+  -- My plugins here
+  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+  use "hoob3rt/lualine.nvim"
 
   use "vim-scripts/lastpos.vim" -- Passive. Last position jump improved.
   use "akinsho/toggleterm.nvim"
-  use "ahmedkhalf/project.nvim"
-  use "lewis6991/impatient.nvim"
   use "lukas-reineke/indent-blankline.nvim"
-  use "phaazon/hop.nvim"
-  use "austintaylor/vim-indentobject" -- indentation as textobj
 
-  use "tpope/vim-unimpaired" -- Mappings for e[ e] q[ q] l[ l], etc
-  use "tpope/vim-repeat" -- Repeat last command
   use "mbbill/undotree" -- Visualize your Vim undo tree
-  use "kylechui/nvim-surround" -- Surround "" ()
-  use "nacro90/numb.nvim" -- Peek line while :__
   use "monaqa/dial.nvim" --
-  use "NvChad/nvim-colorizer.lua"
   use "windwp/nvim-spectre" -- Search text panel
   use "kevinhwang91/nvim-bqf"
   use "ThePrimeagen/harpoon"
@@ -114,7 +134,6 @@ return packer.startup(function(use)
   use "b0o/SchemaStore.nvim"
   use "folke/trouble.nvim"
   use "github/copilot.vim"
-  use "RRethy/vim-illuminate"
   use "stevearc/aerial.nvim"
   use "j-hui/fidget.nvim"
 

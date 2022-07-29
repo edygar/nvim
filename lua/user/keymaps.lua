@@ -109,9 +109,10 @@ keymap("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], term_opts)
 -- Custom
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
 keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
-keymap("n", "<C-q>", "<cmd>lua require('user.functions').smart_quit()<CR>", opts)
+keymap("n", "<A-q>", "<cmd>lua require('user.functions').smart_quit()<CR>", opts)
+keymap("n", "<A-w>", "<cmd>:w<CR>", opts)
 keymap("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], opts)
-keymap("n", "<C-p>", "<cmd>Telescope find_files<CR>", opts)
+keymap("n", "<C-p>", "<cmd>UserTelescope find_files<CR>", opts)
 
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
 

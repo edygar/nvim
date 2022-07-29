@@ -75,7 +75,7 @@ wk.setup {
 wk.register({
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
   ["q"] = { " <cmd>QFToggle!<CR>", "Open QuickFix" },
-  b = { "<cmd>Telescope buffers<cr>", "Buffers" },
+  b = { "<cmd>UserTelescope buffers<cr>", "Buffers" },
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w<CR>", "Write" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No HL" },
@@ -83,7 +83,6 @@ wk.register({
   -- ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 
-  ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
   ["z"] = { "<cmd>ZenMode<cr>", "Zen" },
   ["gy"] = "Link",
 
@@ -128,28 +127,28 @@ wk.register({
 
   f = {
     name = "Find",
-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+    b = { "<cmd>UserTelescope git_branches<cr>", "Checkout branch" },
+    c = { "<cmd>UserTelescope colorscheme<cr>", "Colorscheme" },
     f = {
-      "<cmd>Telescope find_files<cr>",
+      "<cmd>UserTelescope find_files<cr>",
       "Find files",
     },
     F = {
-      "<cmd>Telescope find_files hidden=true no_ignore=true,<cr>",
+      "<cmd>UserTelescope find_files hidden=true no_ignore=true,<cr>",
       "Find files without ignore",
     },
-    t = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+    t = { "<cmd>UserTelescope live_grep<cr>", "Find Text" },
     T = { "<cmd>lua require('spectre').open()<cr>", "Find Text Pane" },
-    h = { "<cmd>Telescope help_tags<cr>", "Help" },
-    l = { "<cmd>Telescope resume<cr>", "Last Search" },
-    j = { "<cmd>Telescope jumplist<cr>", "Jumplist Search" },
-    M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    r = { "<cmd>Telescope oldfiles cwd_only=true<cr>", "Recent File" },
-    R = { "<cmd>Telescope registers<cr>", "Registers" },
-    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-    C = { "<cmd>Telescope commands<cr>", "Commands" },
-    q = { "<cmd>Telescope quickfix<cr>", "Quickfix" },
-    Q = { "<cmd>Telescope quickfixhistory<cr>", "Quickfix Hitory" },
+    h = { "<cmd>UserTelescope help_tags<cr>", "Help" },
+    l = { "<cmd>UserTelescope resume<cr>", "Last Search" },
+    j = { "<cmd>UserTelescope jumplist<cr>", "Jumplist Search" },
+    M = { "<cmd>UserTelescope man_pages<cr>", "Man Pages" },
+    r = { "<cmd>UserTelescope oldfiles cwd_only=true<cr>", "Recent File" },
+    R = { "<cmd>UserTelescope registers<cr>", "Registers" },
+    k = { "<cmd>UserTelescope keymaps<cr>", "Keymaps" },
+    C = { "<cmd>UserTelescope commands<cr>", "Commands" },
+    q = { "<cmd>UserTelescope quickfix<cr>", "Quickfix" },
+    Q = { "<cmd>UserTelescope quickfixhistory<cr>", "Quickfix Hitory" },
   },
 
   g = {
@@ -167,7 +166,7 @@ wk.register({
       "Undo Stage Hunk",
     },
     o = { "<cmd>lua require('user.delta-git-commmits').git_status()<cr>", "Open changed file" },
-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+    b = { "<cmd>UserTelescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>lua require('user.delta-git-commmits').git_commits()<cr>", "Checkout commit" },
     d = {
       "<cmd>Gitsigns diffthis HEAD<cr>",
@@ -191,7 +190,7 @@ wk.register({
     c = { "<cmd>lua require('user.lsp').server_capabilities()<cr>", "Get Capabilities" },
     d = { "<cmd>TroubleToggle<cr>", "Diagnostics" },
     w = {
-      "<cmd>Telescope lsp_workspace_diagnostics<cr>",
+      "<cmd>UserTelescope lsp_workspace_diagnostics<cr>",
       "Workspace Diagnostics",
     },
     f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "Format" },
@@ -212,9 +211,9 @@ wk.register({
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     R = { "<cmd>TroubleToggle lsp_references<cr>", "References" },
-    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+    s = { "<cmd>UserTelescope lsp_document_symbols<cr>", "Document Symbols" },
     S = {
-      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+      "<cmd>UserTelescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
     },
     t = { '<cmd>lua require("user.functions").toggle_diagnostics()<cr>', "Toggle Diagnostics" },
@@ -226,7 +225,7 @@ wk.register({
     -- s = { "<cmd>SaveSession<cr>", "Save" },
     -- l = { "<cmd>LoadLastSession!<cr>", "Load Last" },
     -- d = { "<cmd>LoadCurrentDirSession!<cr>", "Load Last Dir" },
-    -- f = { "<cmd>Telescope sessions save_current=false<cr>", "Find Session" },
+    -- f = { "<cmd>UserTelescope sessions save_current=false<cr>", "Find Session" },
     name = "SnipRun",
     c = { "<cmd>SnipClose<cr>", "Close" },
     f = { "<cmd>%SnipRun<cr>", "Run File" },
@@ -287,7 +286,7 @@ wk.register({
   b = { "<cmd>silent BookmarkToggle<cr>", "Toggle" },
   m = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "Harpoon" },
   j = { "<cmd>silent BookmarkNext<cr>", "Next" },
-  h = { "<cmd>Telescope harpoon marks<cr>", "Search Files" },
+  h = { "<cmd>UserTelescope harpoon marks<cr>", "Search Files" },
   s = {
     "<cmd>lua require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title=\"bookmarks\", shorten_path=false })<cr>",
     "Show",

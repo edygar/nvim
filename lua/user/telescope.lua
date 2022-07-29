@@ -7,6 +7,7 @@ local actions = require "telescope.actions"
 
 telescope.setup {
   defaults = {
+    theme = "ivy",
     layout_config = {
       prompt_position = "top",
     },
@@ -107,11 +108,11 @@ telescope.setup {
 
         ["<C-q>"] = function(bufnr)
           actions.send_to_qflist(bufnr)
-          vim.cmd "Telescope quickfix"
+          vim.cmd "UserTelescope quickfix"
         end,
         ["<M-q>"] = function(bufnr)
           actions.send_selected_to_qflist(bufnr)
-          vim.cmd "Telescope quickfix"
+          vim.cmd "UserTelescope quickfix"
         end,
 
         ["<esc><esc>"] = actions.close,
@@ -151,11 +152,14 @@ telescope.setup {
         ["<PageDown>"] = actions.results_scrolling_down,
       },
     },
-
-    pickers = {
-      oldfiles = {
-        cwd_only = true,
-      },
+  },
+  pickers = {
+    find_files = {
+      theme = "ivy",
+    },
+    oldfiles = {
+      theme = "ivy",
+      cwd_only = true,
     },
   },
   extensions = {
@@ -171,6 +175,10 @@ telescope.setup {
     },
   },
 }
+
+vim.api.nvim_create_user_command("UserTelescope", function(opt)
+  vim.cmd("Telescope " .. opt.args .. " theme=ivy ")
+end, { nargs = "?" })
 
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:

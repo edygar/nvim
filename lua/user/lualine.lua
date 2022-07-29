@@ -4,7 +4,8 @@ if not status_ok then
   return
 end
 
--- check if value in table
+vim.api.nvim_set_hl(0, "BranchSeparator", { fg = "#1e222a", bg = "#282C34" })
+
 local function contains(t, value)
   for _, v in pairs(t) do
     if v == value then
@@ -82,7 +83,7 @@ local diff = {
   colored = true,
   symbols = { added = icons.git.Add .. " ", modified = icons.git.Mod .. " ", removed = icons.git.Remove .. " " }, -- changes diff symbols
   cond = hide_in_width_60,
-  separator = "%#SLSeparator#" .. "│ " .. "%*",
+  -- separator = "%#SLSeparator#" .. "│ " .. "%*",
 }
 
 local filetype = {
@@ -103,13 +104,7 @@ local filetype = {
 
     if str == "toggleterm" then
       -- 
-      local term = "%#SLTermIcon#"
-        .. " "
-        .. "%*"
-        .. "%#SLFG#"
-        .. vim.api.nvim_buf_get_var(0, "toggle_number")
-        .. "%*"
-      return term
+      return "%#SLTermIcon#" .. " " .. "%*"
     end
 
     if contains(ui_filetypes, str) then
@@ -125,13 +120,8 @@ local branch = {
   "branch",
   icons_enabled = true,
   icon = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#",
-  -- color = "Constant",
   colored = true,
-}
-
-local progress = {
-  "progress",
-  color = "SLProgress",
+  separator = "%#BranchSeparator#" .. "" .. "%*",
 }
 
 local current_signature = {
@@ -183,7 +173,7 @@ local spaces = {
     return "  " .. vim.api.nvim_buf_get_option(0, "shiftwidth") .. space
   end,
   padding = 0,
-  separator = "%#SLSeparator#" .. " │" .. "%*",
+  -- separator = "%#SLSeparator#" .. " │" .. "%*",
   cond = hide_in_width_100,
 }
 
@@ -242,6 +232,10 @@ local language_server = {
       vim.list_extend(client_names, linter)
     end
 
+    if copilot_active then
+      table.insert(client_names, icons.git.Octoface..  " ")
+    end
+
     -- join client names with commas
     local client_names_str = table.concat(client_names, ", ")
 
@@ -249,10 +243,7 @@ local language_server = {
     local language_servers = ""
     local client_names_str_len = #client_names_str
     if client_names_str_len ~= 0 then
-      language_servers = "%#SLLSP#" .. "[" .. client_names_str .. "]" .. "%*"
-    end
-    if copilot_active then
-      language_servers = language_servers .. "%#SLCopilot#" .. " " .. icons.git.Octoface .. "%*"
+      language_servers = client_names_str
     end
 
     if client_names_str_len == 0 and not copilot_active then
@@ -262,9 +253,9 @@ local language_server = {
       return language_servers
     end
   end,
-  padding = 0,
+  padding = 1,
   cond = hide_in_width,
-  separator = "%#SLSeparator#" .. " │" .. "%*",
+  -- separator = "%#SLSeparator#" .. " │" .. "%*",
 }
 
 local location = {
@@ -293,8 +284,6 @@ lualine.setup {
     globalstatus = true,
     icons_enabled = true,
     theme = "auto",
-    component_separators = { left = "", right = "" },
-    section_separators = { left = "", right = "" },
     disabled_filetypes = { "alpha", "dashboard" },
     always_divide_middle = true,
   },
@@ -302,16 +291,16 @@ lualine.setup {
     lualine_a = { mode, branch, tabs },
     lualine_b = { diagnostics },
     lualine_c = { current_signature },
-    lualine_x = { diff, "lsp_progress", language_server, spaces, filetype },
-    lualine_y = { progress },
-    lualine_z = { location },
+    lualine_x = { diff, "lsp_progress", language_server, filetype },
+    lualine_y = {},
+    lualine_z = { location, "progress" },
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
     lualine_c = {},
     lualine_x = { "location" },
-    lualine_y = {},
+    lualine_y = { "progress" },
     lualine_z = {},
   },
   tabline = {},
