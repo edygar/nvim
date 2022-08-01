@@ -72,9 +72,9 @@ keymap("n", "]k", "<cmd>silent BookmarkShowAll<cr>", opts)
 -- Plugins
 keymap("n", "<leader>u", "<cmd>UndotreeToggle<CR>", opts)
 
--- ============================
--- Shortcuts for everyday tasks
--- ============================
+-- Hop between worlds in the Buffers
+keymap("n", "<leader><leader>", "<cmd>HopWord<cr>", { silent = true })
+keymap("v", "<leader><leader>", "<cmd>HopWord<cr>", { silent = true })
 
 -- copy current filename into system clipboard
 -- this is helpful to paste someone the path you're looking at
