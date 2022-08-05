@@ -75,7 +75,19 @@ wk.setup {
 wk.register({
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
   ["q"] = { " <cmd>QFToggle!<CR>", "Open QuickFix" },
-  b = { "<cmd>UserTelescope buffers<cr>", "Buffers" },
+  b = {
+    name = "Buffers",
+    f = { "<cmd>UserTelescope buffers<cr>", "Find" },
+    ["c"] = { "<cmd>BDelete this<cr>", "Close" },
+    ["C"] = { "<cmd>BDelete all<cr>", "Close All" },
+    ["o"] = { "<cmd>BDelete other<cr>", "Close Other" },
+    ["h"] = { "<cmd>BDelete hidden<cr>", "Close Hidden" },
+
+    ["r"] = {
+      "<cmd>BdeleteByRegex<cr>",
+      "Close by regex",
+    },
+  },
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w<CR>", "Write" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No HL" },
@@ -127,7 +139,7 @@ wk.register({
 
   f = {
     name = "Find",
-    b = { "<cmd>UserTelescope git_branches<cr>", "Checkout branch" },
+    b = { "<cmd>UserTelescope buffers<cr>", "Buffers" },
     c = { "<cmd>UserTelescope colorscheme<cr>", "Colorscheme" },
     f = {
       "<cmd>UserTelescope find_files<cr>",

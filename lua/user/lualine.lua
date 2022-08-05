@@ -139,7 +139,7 @@ local current_signature = {
 
     if not require("user.functions").isempty(hint) then
       -- return "%#SLSeparator#│ : " .. hint .. "%*"
-      return "%#SLSeparator#│ " .. hint .. "%*"
+      return "%#SLSeparator# " .. hint .. "%*"
     end
 
     return ""
@@ -233,7 +233,7 @@ local language_server = {
     end
 
     if copilot_active then
-      table.insert(client_names, icons.git.Octoface..  " ")
+      table.insert(client_names, icons.git.Octoface .. " ")
     end
 
     -- join client names with commas

@@ -13,7 +13,7 @@ telescope.setup {
     },
 
     file_sorter = require("telescope.sorters").get_fzf_sorter,
-    path_display = { "smart" },
+    path_display = { "truncate" },
 
     selection_caret = "\u{e0b1} ",
     prompt_prefix = "\u{e0b1} ",

@@ -34,10 +34,10 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<leader>vv", "<cmd>vsplit<cr>", opts)
 keymap("n", "<leader>ss", "<cmd>split<cr>", opts)
 -- resize window with arrows
-keymap("n", "<Up>", ":resize +1<CR>", opts)
-keymap("n", "<Down>", ":resize -1<CR>", opts)
-keymap("n", "<Left>", "<C-w><", opts)
-keymap("n", "<Right>", "<C-w>>", opts)
+keymap("n", "<C-Up>", ":resize -2<CR>", opts)
+keymap("n", "<C-Down>", ":resize +2<CR>", opts)
+keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Tabs --
 keymap("n", "tt", ":tabedit<cr>", opts)

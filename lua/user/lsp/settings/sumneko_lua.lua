@@ -21,23 +21,21 @@ return {
       -- spell = {"the"}
       runtime = {
         version = "LuaJIT",
-        special = {
-          include = "reload",
-        },
+        path = vim.split(package.path, ";"),
       },
       diagnostics = {
-        globals = { "vim" },
+        globals = { "vim", "describe", "it", "before_each", "after_each", "packer_plugins" },
       },
       workspace = {
         library = {
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.stdpath "config" .. "/lua"] = true,
-          -- [vim.fn.datapath "config" .. "/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
         },
+        maxPreload = 2000,
+        preloadFileSize = 50000,
       },
-      telemetry = {
-        enable = false,
-      },
+      completion = { callSnippet = "Both" },
+      telemetry = { enable = false },
     },
   },
 }

@@ -25,52 +25,57 @@ end
 vim.cmd [[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]]
 
 -- Have packer use a popup window
 packer.init {}
 
--- Install your plugins here
-local falsy = function()
-  return false
-end
-
-return packer.startup(function(_use)
-  local essential = true
-  local use = function(opts)
-    if type(opts) == "string" then
-      opts = { opts }
-    end
-
-    if not essential then
-      opts["cond"] = falsy
-    end
-
-    _use(opts)
-  end
-
-  use { "lewis6991/impatient.nvim" }
+return packer.startup(function(use)
+  -- [Packer] -- Neovim Plugin Management
+  use {
+    "lewis6991/impatient.nvim",
+    config = function()
+      require("impatient").enable_profile()
+    end,
+  }
   use { "wbthomason/packer.nvim" } -- Have packer manage itself
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used ny lots of plugins
-  use { "numToStr/Comment.nvim" } -- Toggle comments with ease
+
+  -- [Essential] -- Plugins that are always loaded
+  -- In general, plugins for file navigation/paginationplugin
+  use {
+    -- Toggle comments with ease
+    "numToStr/Comment.nvim",
+    config = function()
+      require("user.comment").config()
+    end,
+  }
+
   use { "christoomey/vim-tmux-navigator" } --  Seamless navigation between vim and tmux windows
-  use { "phaazon/hop.nvim" }
-  use { "moll/vim-bbye" }
+  use {
+    "phaazon/hop.nvim",
+    config = function()
+      require("hop").setup()
+    end,
+  } -- Jump to a file in the current directory
+  use {
+    "kazhala/close-buffers.nvim",
+    config = function()
+      require("user.close-buffers").config()
+    end,
+  } -- Close buffers utility
   use { "austintaylor/vim-indentobject" } -- indentation as textobj
   use { "tpope/vim-unimpaired" } -- Mappings for e[ e] q[ q] l[ l], etc
   use { "tpope/vim-repeat" } -- Repeat last command
   use { "kylechui/nvim-surround" } -- Surround "" ()
   use { "nacro90/numb.nvim" } -- Peek line while :__
-  use { "NvChad/nvim-colorizer.lua" }
-  use { "RRethy/vim-illuminate" }
+  use { "NvChad/nvim-colorizer.lua" } -- see colors in vim: #300
 
-  if MINIMAL then
-    essential = false
-  end
-
-  -- My plugins here
+  -- [Optional] -- Plugins that are useful but not essential
+  -- [Utility] -- Plugins that are useful but not essential
+  use { "RRethy/vim-illuminate" } -- Highlight world under cursor
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "hoob3rt/lualine.nvim"
 
@@ -100,7 +105,12 @@ return packer.startup(function(_use)
   use "rcarriga/nvim-notify"
   use "kyazdani42/nvim-web-devicons"
   use "kyazdani42/nvim-tree.lua"
-  use "goolord/alpha-nvim"
+  use {
+    "goolord/alpha-nvim",
+    config = function()
+      require("user.alpha").config()
+    end,
+  }
   use "folke/which-key.nvim"
   use "folke/zen-mode.nvim"
   use "folke/todo-comments.nvim"
@@ -111,15 +121,23 @@ return packer.startup(function(_use)
   use "lunarvim/onedarker.nvim"
 
   -- cmp plugins
-  use { "hrsh7th/nvim-cmp" }
-  use "hrsh7th/cmp-buffer" -- buffer completions
-  use "hrsh7th/cmp-path" -- path completions
-  use "hrsh7th/cmp-cmdline" -- cmdline completions
-  use "saadparwaiz1/cmp_luasnip" -- snippet completions
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-emoji"
-  use "zbirenbaum/copilot-cmp"
-  use "hrsh7th/cmp-nvim-lua"
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-buffer", -- buffer completions
+      "hrsh7th/cmp-path", -- path completions
+      "hrsh7th/cmp-cmdline", -- cmdline completions
+      "saadparwaiz1/cmp_luasnip", -- snippet completions
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-emoji",
+      "zbirenbaum/copilot-cmp",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+    },
+    config = function()
+      require("user.cmp").config()
+    end,
+  }
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
@@ -162,7 +180,16 @@ return packer.startup(function(_use)
   use "JoosepAlviste/nvim-ts-context-commentstring"
   use "nvim-treesitter/playground"
   use "windwp/nvim-ts-autotag"
-  -- use "drybalka/tree-climber.nvim"
+  use {
+    "ThePrimeagen/refactoring.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("user.refactoring").config()
+    end,
+  }
 
   -- Git
   use "lewis6991/gitsigns.nvim"

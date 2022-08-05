@@ -25,7 +25,6 @@ null_ls.setup {
     -- code actions
     builtins.code_actions.gitsigns,
     builtins.code_actions.eslint_d,
-    builtins.code_actions.gitrebase,
     builtins.code_actions.refactoring,
 
     -- hover

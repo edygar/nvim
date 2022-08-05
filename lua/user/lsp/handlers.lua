@@ -71,7 +71,7 @@ local function lsp_highlight_document(client)
 end
 
 local function attach_aerial(client, bufnr)
-  vim.g.navic_silence = true
+  vim.g.aerial_silence = true
   local status_ok, aerial = pcall(require, "aerial")
   if not status_ok then
     return
