@@ -2,7 +2,7 @@ local M = {}
 
 M.config = function()
   require("close_buffers").setup()
-  vim.api.nvim_create_user_command("BdeleteByRegex", function()
+  vim.api.nvim_create_user_command("BDeletex", function()
     vim.ui.input({
       prompt = "Delete buffers matching regex:",
     }, function(input)

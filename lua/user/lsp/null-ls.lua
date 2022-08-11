@@ -23,7 +23,6 @@ null_ls.setup {
     builtins.diagnostics.shellcheck,
 
     -- code actions
-    builtins.code_actions.gitsigns,
     builtins.code_actions.eslint_d,
     builtins.code_actions.refactoring,
 

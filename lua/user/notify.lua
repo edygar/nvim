@@ -1,8 +1,4 @@
-local status_ok, notify = pcall(require, "notify")
-if not status_ok then
-  return
-end
-
+local notify = require "notify"
 local icons = require "user.icons"
 
 notify.setup {
@@ -38,4 +34,5 @@ notify.setup {
   },
 }
 
+require("telescope").load_extension "notify"
 vim.notify = notify

@@ -62,3 +62,11 @@ vim.filetype.add {
     conf = "dosini",
   },
 }
+vim.cmd [[
+  " Ensure that helptags are generated for the vim help directory
+  let g:DocPath = expand("$VIMRUNTIME/doc")
+  let g:DocTags = join([g:DocPath, "tags"], "/")
+  if !filereadable(g:DocTags)
+      execute join(["helptags", g:DocPath])
+  endif
+]]
