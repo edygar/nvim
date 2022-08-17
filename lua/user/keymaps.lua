@@ -108,13 +108,21 @@ keymap("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], term_opts)
 
 -- Custom
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
-keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
 keymap("n", "<A-q>", "<cmd>lua require('user.functions').smart_quit()<CR>", opts)
 keymap("n", "<A-w>", "<cmd>:w<CR>", opts)
 keymap("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], opts)
 keymap("n", "<C-p>", "<cmd>UserTelescope find_files<CR>", opts)
 
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
+
+vim.cmd [[
+  xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+  function! ExecuteMacroOverVisualRange()
+    echo "@".getcmdline()
+    execute ":'<,'>normal @".nr2char(getchar())
+  endfunction
+]]
 
 M.show_documentation = function()
   local filetype = vim.bo.filetype

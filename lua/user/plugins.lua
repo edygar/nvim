@@ -152,7 +152,7 @@ return packer.startup(function(use)
   use "b0o/SchemaStore.nvim"
   use "folke/trouble.nvim"
   use "github/copilot.vim"
-  use "stevearc/aerial.nvim"
+  use "SmiteshP/nvim-navic"
   use "j-hui/fidget.nvim"
 
   -- TODO: set this up
@@ -171,10 +171,16 @@ return packer.startup(function(use)
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
-  use "nvim-telescope/telescope-media-files.nvim"
   use "nvim-telescope/telescope-ui-select.nvim"
   use "tom-anders/telescope-vim-bookmarks.nvim"
-  use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+  use {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    config = function()
+      require("telescope").load_extension "fzf"
+    end,
+    run = "make",
+    requires = "nvim-telescope/telescope.nvim",
+  }
 
   -- Treesitter
   use "nvim-treesitter/nvim-treesitter"

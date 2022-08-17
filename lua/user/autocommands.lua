@@ -81,6 +81,20 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  callback = function()
+    local server = string.gsub(vim.api.nvim_command_output ":echo serverlist()[0]", "%$", "@")
+    vim.cmd("silent !nvim-update.sh + " .. server)
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+  callback = function()
+    local server = string.gsub(vim.api.nvim_command_output ":echo serverlist()[0]", "%$", "@")
+    vim.cmd("silent !nvim-update.sh - " .. server)
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
     vim.cmd "hi link illuminatedWord LspReferenceText"

@@ -70,13 +70,13 @@ local function lsp_highlight_document(client)
   -- end
 end
 
-local function attach_aerial(client, bufnr)
-  vim.g.aerial_silence = true
-  local status_ok, aerial = pcall(require, "aerial")
+local function attach_navic(client, bufnr)
+  vim.g.navic_silence = true
+  local status_ok, navic = pcall(require, "nvim-navic")
   if not status_ok then
     return
   end
-  aerial.on_attach(client, bufnr)
+  navic.attach(client, bufnr)
 end
 
 local function lsp_keymaps(bufnr)
@@ -99,7 +99,7 @@ end
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-  attach_aerial(client, bufnr)
+  attach_navic(client, bufnr)
 
   if client.name == "tsserver" or client.name == "sumneko_lua" then
     client.server_capabilities.documentFormattingProvider = false

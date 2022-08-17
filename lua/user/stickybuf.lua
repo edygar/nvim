@@ -27,7 +27,7 @@ stickybuf.setup {
     floating = false,
   },
   filetype = {
-    aerial = "filetype",
+    navic = "filetype",
     nerdtree = "filetype",
     NvimTree = "filetype",
     ["neotest-summary"] = "filetype",

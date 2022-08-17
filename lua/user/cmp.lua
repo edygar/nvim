@@ -73,6 +73,13 @@ M.config = function()
         },
         { "i", "c" }
       ),
+      ["<CR>"] = cmp.mapping(
+        cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = true,
+        },
+        { "i", "c" }
+      ),
 
       ["<c-space>"] = cmp.mapping {
         i = cmp.mapping.complete(),

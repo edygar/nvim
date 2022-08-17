@@ -1,3 +1,5 @@
+local icons = require "user.icons"
+local functions = require "user.functions"
 local M = {}
 
 M.winbar_filetype_exclude = {
@@ -33,100 +35,115 @@ M.winbar_filetype_exclude = {
   "whichkey",
 }
 
-local aerial = require "aerial"
-local devicon = require "nvim-web-devicons"
-local icons = require "user.icons"
-local sep = " " .. icons.ui.ChevronRight .. " "
-
--- Format the list representing the symbol path
--- Grab it from https://github.com/stevearc/aerial.nvim/blob/master/lua/lualine/components/aerial.lua
-local function format_symbols(symbols, depth, separator, icons_enabled)
-  local parts = {}
-  depth = depth or #symbols
-
-  if depth > 0 then
-    symbols = { unpack(symbols, 1, depth) }
-  else
-    symbols = { unpack(symbols, #symbols + 1 + depth) }
-  end
-
-  for _, symbol in ipairs(symbols) do
-    if icons_enabled then
-      table.insert(parts, "%#Aerial" .. symbol.kind .. "Icon#" .. symbol.icon .. "%*" .. symbol.name)
-    else
-      table.insert(parts, symbol.name)
-    end
-  end
-
-  return table.concat(parts, separator)
-end
-
-local function get_symbol_path()
-  -- Get a list representing the symbol path by aerial.get_location (see
-  -- https://github.com/stevearc/aerial.nvim/blob/master/lua/aerial/init.lua#L127),
-  -- and format the list to get the symbol path.
-  -- Grab it from
-  -- https://github.com/stevearc/aerial.nvim/blob/master/lua/lualine/components/aerial.lua#L89
-  local symbols = aerial.get_location(true)
-  local symbol_path = format_symbols(symbols, nil, sep, true)
-  return symbol_path == "" and "" or symbol_path
-end
-
-local function get_win_num()
-  local win_num = vim.api.nvim_win_get_number(0)
-  -- Whether the current window is a maximized one (by maximized.nvim)
-  local maximized = vim.t.maximized and "   " or ""
-  return " " .. win_num .. maximized .. sep
-end
-
-local function get_file_icon_and_name()
+M.get_filename = function()
   local filename = vim.fn.expand "%:t"
-  local file_icon, file_icon_color = devicon.get_icon_color_by_filetype(vim.bo.filetype, { default = true })
-  vim.api.nvim_set_hl(0, "WinbarFileIcon", { fg = file_icon_color })
-  return "%#WinbarFileIcon#" .. file_icon .. "%* " .. filename
+  local extension = vim.fn.expand "%:e"
+
+  if not functions.isempty(filename) then
+    local file_icon, file_icon_color =
+      require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+
+    local hl_group = "FileIconColor" .. extension
+
+    vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
+    if functions.isempty(file_icon) then
+      file_icon = ""
+      file_icon_color = ""
+    end
+
+    local navic_text = vim.api.nvim_get_hl_by_name("NavicText", true)
+    vim.api.nvim_set_hl(0, "Winbar", { fg = navic_text.foreground })
+
+    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#Winbar#" .. filename .. "%*"
+  end
 end
 
-local function get_modified()
-  local modified = vim.api.nvim_eval_statusline("%m", {}).str
-  return modified == "" and "" or " %#Normal#" .. modified .. "%*"
+local get_gps = function()
+  local status_gps_ok, gps = pcall(require, "nvim-navic")
+  if not status_gps_ok then
+    return ""
+  end
+
+  local status_ok, gps_location = pcall(gps.get_location, {})
+  if not status_ok then
+    return ""
+  end
+
+  if not gps.is_available() or gps_location == "error" then
+    return ""
+  end
+
+  if not functions.isempty(gps_location) then
+    return icons.ui.ChevronRight .. " " .. gps_location
+  else
+    return ""
+  end
 end
 
-M.winbar = function()
-  local win_num = get_win_num()
+local excludes = function()
+  if vim.tbl_contains(M.winbar_filetype_exclude, vim.bo.filetype) then
+    vim.opt_local.winbar = nil
+    return true
+  end
+  return false
+end
 
-  for _, ft in pairs(M.winbar_filetype_exclude) do
-    if vim.bo.filetype == ft then
-      return ""
+M.get_winbar = function()
+  if excludes() then
+    return
+  end
+  local value = M.get_filename()
+
+  local gps_added = false
+  if not functions.isempty(value) then
+    local gps_value = get_gps()
+    local path = vim.fn.expand "%:~:.:h"
+    value = " " .. path .. " " .. icons.ui.ChevronRight .. value .. " " .. gps_value
+    if not functions.isempty(gps_value) then
+      gps_added = true
     end
   end
 
-  local path = vim.fn.expand "%:~:.:h"
-  local symbol_path = get_symbol_path()
-  local file_icon_and_name = get_file_icon_and_name()
-  local modified = get_modified()
+  if not functions.isempty(value) and functions.get_buf_option "mod" then
+    local mod = "%#LspCodeLens#" .. icons.ui.Circle .. "%*"
+    if gps_added then
+      value = value .. " " .. mod
+    else
+      value = value .. mod
+    end
+  end
 
-  return table.concat({ win_num .. " %<" .. path, file_icon_and_name .. modified, symbol_path }, sep)
+  local num_tabs = #vim.api.nvim_list_tabpages()
+
+  if num_tabs > 1 and not functions.isempty(value) then
+    local tabpage_number = tostring(vim.api.nvim_tabpage_get_number(0))
+    value = value .. "%=" .. tabpage_number .. "/" .. tostring(num_tabs)
+  end
+
+  local status_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", value, { scope = "local" })
+  if not status_ok then
+    return
+  end
 end
 
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-  pattern = { "*" },
-  callback = function(args)
-    local buf = vim.bo[args.buf]
+M.create_winbar = function()
+  vim.api.nvim_create_augroup("_winbar", {})
+  if vim.fn.has "nvim-0.8" == 1 then
+    vim.api.nvim_create_autocmd(
+      { "CursorMoved", "CursorHold", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
+      {
+        group = "_winbar",
+        callback = function()
+          local status_ok, _ = pcall(vim.api.nvim_buf_get_var, 0, "lsp_floating_window")
+          if not status_ok then
+            require("user.winbar").get_winbar()
+          end
+        end,
+      }
+    )
+  end
+end
 
-    if buf.filetype == "" then
-      vim.opt_local.winbar = nil
-      return
-    end
-
-    local exluded_filetype = vim.tbl_contains(M.winbar_filetype_exclude, buf.filetype)
-    local excluded_buftype = vim.tbl_contains(M.winbar_filetype_exclude, buf.buftype)
-
-    if exluded_filetype or excluded_buftype then
-      vim.opt_local.winbar = nil
-    else
-      vim.opt_local.winbar = "%{%v:lua.require('user.winbar').winbar()%}"
-    end
-  end,
-})
+M.create_winbar()
 
 return M
