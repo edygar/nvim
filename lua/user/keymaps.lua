@@ -88,9 +88,8 @@ keymap("n", "<leader>cn", "<cmd>let @* = expand('%:t')<CR>", opts)
 -- (v)im (r)eload
 keymap("n", "<leader>vr", '<cmd>lua require("user.reload").reload()<CR>', opts)
 
-
 -- Visual --
-keymap("v", "p", '"_dP', opts)
+keymap("v", "p", '"_c<esc>P', opts)
 
 -- Terminal --
 -- Better terminal navigation
