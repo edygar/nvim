@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 vim.api.nvim_set_hl(0, "BranchSeparator", { fg = "#1e222a", bg = "#282C34" })
+vim.api.nvim_set_hl(0, "LuaLineSeparator", { bg = "#282C34", fg = "#1e222a" })
 
 local function contains(t, value)
   for _, v in pairs(t) do
@@ -44,14 +45,16 @@ local mode = {
   -- mode component
   function()
     -- return "▊"
-    return "  "
+    return "  %#ModeSeparator# %*"
     -- return "  "
   end,
   color = function()
+    vim.api.nvim_set_hl(0, "ModeSeparator", { fg = "#1e222a", bg = mode_color[vim.fn.mode()] })
     -- auto change color according to neovims mode
     return { bg = mode_color[vim.fn.mode()] }
   end,
   padding = 0,
+  separator = " ",
 }
 
 local hide_in_width_60 = function()
@@ -121,7 +124,7 @@ local branch = {
   icons_enabled = true,
   icon = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#",
   colored = true,
-  separator = "%#BranchSeparator#" .. "" .. "%*",
+  separator = "%#BranchSeparator#" .. " " .. "%*",
 }
 
 local current_signature = {
@@ -286,6 +289,8 @@ lualine.setup {
     theme = "auto",
     disabled_filetypes = { "alpha", "dashboard" },
     always_divide_middle = true,
+    component_separators = { left = "%#LuaLineSeparator# %*", right = "%#LuaLineSeparator# %*" },
+    section_separators = { left = " ", right = " " },
   },
   sections = {
     lualine_a = { mode, branch, tabs },

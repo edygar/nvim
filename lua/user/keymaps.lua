@@ -88,23 +88,16 @@ keymap("n", "<leader>cn", "<cmd>let @* = expand('%:t')<CR>", opts)
 -- (v)im (r)eload
 keymap("n", "<leader>vr", '<cmd>lua require("user.reload").reload()<CR>', opts)
 
--- Visual --
--- Move text up and down
-keymap("v", "p", '"_dP', opts)
 
--- Tmux
-keymap("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>", opts)
-keymap("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>", opts)
-keymap("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>", opts)
-keymap("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>", opts)
--- keymap("n", "<c-\\>", "<cmd>TmuxNavigatePrevious<cr>", opts);
+-- Visual --
+keymap("v", "p", '"_dP', opts)
 
 -- Terminal --
 -- Better terminal navigation
-keymap("t", "<C-h>", [[ <C-\><C-N><C-w>h ]], term_opts)
-keymap("t", "<C-j>", [[ <C-\><C-N><C-w>j ]], term_opts)
-keymap("t", "<C-k>", [[ <C-\><C-N><C-w>k ]], term_opts)
-keymap("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], term_opts)
+keymap("t", "<C-h>", [[ <esc><esc><C-w>h ]], term_opts)
+keymap("t", "<C-j>", [[ <esc><esc><C-w>j ]], term_opts)
+keymap("t", "<C-k>", [[ <esc><esc><C-w>k ]], term_opts)
+keymap("t", "<C-l>", [[ <esc><esc><C-w>l ]], term_opts)
 
 -- Custom
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
