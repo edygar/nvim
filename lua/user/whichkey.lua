@@ -78,10 +78,10 @@ wk.register({
   b = {
     name = "Buffers",
     f = { "<cmd>UserTelescope buffers<cr>", "Find" },
-    ["c"] = { "<cmd>BDelete this<cr>", "Close" },
-    ["C"] = { "<cmd>BDelete all<cr>", "Close All" },
-    ["o"] = { "<cmd>BDelete other<cr>", "Close Other" },
-    ["h"] = { "<cmd>BDelete hidden<cr>", "Close Hidden" },
+    ["c"] = { "<cmd>Bdelete this<cr>", "Close" },
+    ["C"] = { "<cmd>Bdelete all<cr>", "Close All" },
+    ["o"] = { "<cmd>Bdelete other<cr>", "Close Other" },
+    ["h"] = { "<cmd>Bdelete hidden<cr>", "Close Hidden" },
 
     ["r"] = {
       "<cmd>BdeleteByRegex<cr>",

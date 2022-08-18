@@ -8,9 +8,6 @@ local actions = require "telescope.actions"
 telescope.setup {
   defaults = {
     theme = "ivy",
-    layout_config = {
-      prompt_position = "top",
-    },
 
     file_sorter = require("telescope.sorters").get_fzf_sorter,
     path_display = { "truncate" },

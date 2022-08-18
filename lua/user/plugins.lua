@@ -53,19 +53,36 @@ return packer.startup(function(use)
     end,
   }
 
-  use { "christoomey/vim-tmux-navigator" } --  Seamless navigation between vim and tmux windows
+use({
+    "aserowy/tmux.nvim",
+    config = function()
+        require("tmux").setup({
+            -- overwrite default configuration
+            -- here, e.g. to enable default bindings
+            copy_sync = {
+                -- enables copy sync and overwrites all register actions to
+                -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
+                enable = true,
+            },
+            navigation = {
+                -- enables default keybindings (C-hjkl) for normal mode
+                enable_default_keybindings = true,
+            },
+            resize = {
+                -- enables default keybindings (A-hjkl) for normal mode
+                enable_default_keybindings = true,
+            }
+        })
+    end
+})
+
   use {
     "phaazon/hop.nvim",
     config = function()
       require("hop").setup()
     end,
   } -- Jump to a file in the current directory
-  use {
-    "kazhala/close-buffers.nvim",
-    config = function()
-      require("user.close-buffers").config()
-    end,
-  } -- Close buffers utility
+  use "Asheq/close-buffers.vim" -- Close buffers utility
   use { "austintaylor/vim-indentobject" } -- indentation as textobj
   use { "tpope/vim-unimpaired" } -- Mappings for e[ e] q[ q] l[ l], etc
   use { "tpope/vim-repeat" } -- Repeat last command
@@ -180,6 +197,13 @@ return packer.startup(function(use)
     end,
     run = "make",
     requires = "nvim-telescope/telescope.nvim",
+  }
+
+  use {
+    "camgraff/telescope-tmux.nvim",
+    config = function()
+      require("telescope").load_extension "tmux"
+    end,
   }
 
   -- Treesitter
