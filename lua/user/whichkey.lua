@@ -210,7 +210,7 @@ wk.register({
     F = { "<cmd>LspToggleAutoFormat<cr>", "Toggle Autoformat" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     h = { "<cmd>IlluminationToggle<cr>", "Toggle Doc HL" },
-    I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
+    I = { "<cmd>Mason<cr>", "Installer Info" },
     j = {
       "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>",
       "Next Diagnostic",

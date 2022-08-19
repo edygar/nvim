@@ -145,9 +145,9 @@ return packer.startup(function(use)
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   -- LSP
+  use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
-  use "neovim/nvim-lspconfig" -- enable LSP
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
   use "simrat39/symbols-outline.nvim"
   use "ray-x/lsp_signature.nvim"
@@ -163,6 +163,7 @@ return packer.startup(function(use)
       end, 100)
     end,
   }
+  use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
   use "SmiteshP/nvim-navic"
   use "j-hui/fidget.nvim"
 
