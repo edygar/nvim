@@ -33,11 +33,6 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 -- Window organization
 keymap("n", "<leader>vv", "<cmd>vsplit<cr>", opts)
 keymap("n", "<leader>ss", "<cmd>split<cr>", opts)
--- resize window with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Tabs --
 keymap("n", "tt", ":tabedit<cr>", opts)
@@ -89,7 +84,7 @@ keymap("n", "<leader>cn", "<cmd>let @* = expand('%:t')<CR>", opts)
 keymap("n", "<leader>vr", '<cmd>lua require("user.reload").reload()<CR>', opts)
 
 -- Visual --
-keymap("v", "p", '"_c<esc>P', opts)
+keymap("v", "p", '"_dP', opts)
 
 -- Terminal --
 -- Better terminal navigation

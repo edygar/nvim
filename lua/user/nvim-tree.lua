@@ -120,6 +120,8 @@ nvim_tree.setup {
         { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
         { key = "h", cb = tree_cb "close_node" },
         { key = "v", cb = tree_cb "vsplit" },
+        { key = "[d", cb = tree_cb "prev_diag_item" },
+        { key = "]d", cb = tree_cb "next_diag_item" },
       },
     },
     number = false,

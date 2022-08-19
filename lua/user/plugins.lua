@@ -145,15 +145,24 @@ return packer.startup(function(use)
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   -- LSP
-  use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
+  use "neovim/nvim-lspconfig" -- enable LSP
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
   use "simrat39/symbols-outline.nvim"
   use "ray-x/lsp_signature.nvim"
   use "b0o/SchemaStore.nvim"
   use "folke/trouble.nvim"
-  use "github/copilot.vim"
+  --[[ use "github/copilot.vim" ]]
+  use {
+    "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("user.copilot").config()
+      end, 100)
+    end,
+  }
   use "SmiteshP/nvim-navic"
   use "j-hui/fidget.nvim"
 
@@ -196,6 +205,12 @@ return packer.startup(function(use)
   use "JoosepAlviste/nvim-ts-context-commentstring"
   use "nvim-treesitter/playground"
   use "windwp/nvim-ts-autotag"
+  use {
+    "ziontee113/syntax-tree-surfer",
+    config = function()
+      require("user.syntax-tree-surfer").config()
+    end,
+  }
   use {
     "ThePrimeagen/refactoring.nvim",
     requires = {
