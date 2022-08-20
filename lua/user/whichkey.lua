@@ -118,10 +118,12 @@ wk.register({
   },
 
   r = {
-    name = "Replace",
+    name = "Refactor",
     r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
     w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
     f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
+    b = { "<cmd>lua require('refactoring').refactor('Extract Block')<cr>", "Extract Block" },
+    B = { "<cmd>lua require('refactoring').refactor('Extract Block To File')<cr>", "Extract Block To File" },
   },
 
   d = {
@@ -283,6 +285,13 @@ wk.register({
 wk.register({
   ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Comment" },
   s = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
+  r = {
+    name = "Refactoring",
+    e = { "<cmd>lua require('refactoring').refactor('Extract Function')<cr>", "Extract Function" },
+    f = { "<cmd>lua require('refactoring').refactor('Extract Function To File')<cr>", "Extract Function To File" },
+    v = { "<cmd>lua require('refactoring').refactor('Extract Variable')<cr>", "Extract Variable" },
+    i = { "<cmd>lua require('refactoring').refactor('Inline Variable')<cr>", "Inline Variable" },
+  },
 }, {
   mode = "v", -- VISUAL mode
   prefix = "<leader>",

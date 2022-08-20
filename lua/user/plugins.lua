@@ -2,6 +2,7 @@ local fn = vim.fn
 
 -- Automatically install packer
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+---@diagnostic disable-next-line: missing-parameter
 if fn.empty(fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP = fn.system {
     "git",
@@ -30,7 +31,16 @@ vim.cmd [[
 ]]
 
 -- Have packer use a popup window
-packer.init {}
+packer.init {
+  snapshot_path = fn.stdpath "config" .. "/snapshots",
+  max_jobs = 50,
+  display = {
+    open_fn = function()
+      return require("packer.util").float { border = "rounded" }
+    end,
+    prompt_border = "rounded", -- Border style of prompt popups.
+  },
+}
 
 return packer.startup(function(use)
   -- [Packer] -- Neovim Plugin Management
@@ -42,6 +52,7 @@ return packer.startup(function(use)
   }
   use { "wbthomason/packer.nvim" } -- Have packer manage itself
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used ny lots of plugins
+  use "christianchiarulli/lua-dev.nvim"
 
   -- [Essential] -- Plugins that are always loaded
   -- In general, plugins for file navigation/paginationplugin
@@ -67,16 +78,19 @@ return packer.startup(function(use)
     end,
   } -- Jump to a file in the current directory
   use "Asheq/close-buffers.vim" -- Close buffers utility
-  use { "austintaylor/vim-indentobject" } -- indentation as textobj
-  use { "tpope/vim-unimpaired" } -- Mappings for e[ e] q[ q] l[ l], etc
-  use { "tpope/vim-repeat" } -- Repeat last command
-  use { "kylechui/nvim-surround" } -- Surround "" ()
-  use { "nacro90/numb.nvim" } -- Peek line while :__
-  use { "NvChad/nvim-colorizer.lua" } -- see colors in vim: #300
+  use "austintaylor/vim-indentobject" -- indentation as textobj
+  use "tpope/vim-unimpaired" -- Mappings for e[ e] q[ q] l[ l], etc
+  use "tpope/vim-repeat" -- Repeat last command
+  use "kylechui/nvim-surround" -- Surround "" ()
+  use "nacro90/numb.nvim" -- Peek line while :__
+  use "NvChad/nvim-colorizer.lua" -- see colors in vim: #300
 
   -- [Optional] -- Plugins that are useful but not essential
   -- [Utility] -- Plugins that are useful but not essential
-  use { "RRethy/vim-illuminate" } -- Highlight world under cursor
+  use {
+    "RRethy/vim-illuminate",
+    commit = "6bfa5dc",
+  } -- Highlight world under cursor
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "hoob3rt/lualine.nvim"
 
@@ -145,9 +159,13 @@ return packer.startup(function(use)
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   -- LSP
-  use "neovim/nvim-lspconfig" -- enable LSP
-  use "williamboman/mason.nvim"
-  use "williamboman/mason-lspconfig.nvim"
+  --
+  --[[ use "williamboman/nvim-lsp-installer" -- simple to use language server installer ]]
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  }
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
   use "simrat39/symbols-outline.nvim"
   use "ray-x/lsp_signature.nvim"

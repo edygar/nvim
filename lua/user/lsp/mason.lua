@@ -25,13 +25,12 @@ local servers = {
   "yamlls",
   "bashls",
   "clangd",
-  "rust_analyzer",
   "taplo",
   "zk@v0.10.1",
   "lemminx",
 }
 
-local settings = {
+mason.setup {
   ui = {
     border = "rounded",
     icons = {
@@ -43,8 +42,6 @@ local settings = {
   log_level = vim.log.levels.INFO,
   max_concurrent_installers = 4,
 }
-
-mason.setup(settings)
 mason_lspconfig.setup {
   ensure_installed = servers,
   automatic_installation = true,
@@ -114,22 +111,6 @@ for _, server in pairs(servers) do
   if server == "zk" then
     local zk_opts = require "user.lsp.settings.zk"
     opts = vim.tbl_deep_extend("force", zk_opts, opts)
-  end
-
-  if server == "jdtls" then
-    goto continue
-  end
-
-  if server == "rust_analyzer" then
-    local rust_opts = require "user.lsp.settings.rust"
-    -- opts = vim.tbl_deep_extend("force", rust_opts, opts)
-    local rust_tools_status_ok, rust_tools = pcall(require, "rust-tools")
-    if not rust_tools_status_ok then
-      return
-    end
-
-    rust_tools.setup(rust_opts)
-    goto continue
   end
 
   lspconfig[server].setup(opts)
