@@ -79,3 +79,8 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close {}
 end
 
+dap.adapters.node2 = {
+  type = "executable",
+  command = "node",
+  args = "",
+}

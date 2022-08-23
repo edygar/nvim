@@ -81,6 +81,7 @@ return packer.startup(function(use)
   use "austintaylor/vim-indentobject" -- indentation as textobj
   use "tpope/vim-unimpaired" -- Mappings for e[ e] q[ q] l[ l], etc
   use "tpope/vim-repeat" -- Repeat last command
+  use "andymass/vim-visput"
   use "kylechui/nvim-surround" -- Surround "" ()
   use "nacro90/numb.nvim" -- Peek line while :__
   use "NvChad/nvim-colorizer.lua" -- see colors in vim: #300
@@ -172,15 +173,15 @@ return packer.startup(function(use)
   use "b0o/SchemaStore.nvim"
   use "folke/trouble.nvim"
   --[[ use "github/copilot.vim" ]]
-  use {
-    "zbirenbaum/copilot.lua",
-    event = { "VimEnter" },
-    config = function()
-      vim.defer_fn(function()
-        require("user.copilot").config()
-      end, 100)
-    end,
-  }
+  --[[ use { ]]
+  --[[   "zbirenbaum/copilot.lua", ]]
+  --[[   event = { "VimEnter" }, ]]
+  --[[   config = function() ]]
+  --[[     vim.defer_fn(function() ]]
+  --[[       require("user.copilot").config() ]]
+  --[[     end, 100) ]]
+  --[[   end, ]]
+  --[[ } ]]
   use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
   use "SmiteshP/nvim-navic"
   use "j-hui/fidget.nvim"
@@ -250,9 +251,9 @@ return packer.startup(function(use)
 
   -- DAP
   use "mfussenegger/nvim-dap"
-  -- use "theHamsta/nvim-dap-virtual-text"
+  use "jbyuki/one-small-step-for-vimkind"
   use "rcarriga/nvim-dap-ui"
-  -- use "Pocco81/DAPInstall.nvim"
+  -- use "theHamsta/nvim-dap-virtual-text"
 
   -- Plugin Graveyard
   -- use "mizlan/iswap.nvim"

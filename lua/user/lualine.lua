@@ -4,8 +4,8 @@ if not status_ok then
   return
 end
 
-vim.api.nvim_set_hl(0, "BranchSeparator", { fg = "#1e222a", bg = "#282C34" })
 vim.api.nvim_set_hl(0, "LuaLineSeparator", { bg = "#282C34", fg = "#1e222a" })
+vim.api.nvim_set_hl(0, "PreTabs", { bg = "#24282E", fg = "#1e222a" })
 
 local function contains(t, value)
   for _, v in pairs(t) do
@@ -54,7 +54,6 @@ local mode = {
     return { bg = mode_color[vim.fn.mode()] }
   end,
   padding = 0,
-  separator = " ",
 }
 
 local hide_in_width_60 = function()
@@ -121,10 +120,9 @@ local filetype = {
 
 local branch = {
   "branch",
-  icons_enabled = true,
   icon = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#",
   colored = true,
-  separator = "%#BranchSeparator#" .. " " .. "%*",
+  separator = "%#PreTabs# %*",
 }
 
 local current_signature = {

@@ -20,7 +20,6 @@ null_ls.setup {
     -- diagnostics
     builtins.diagnostics.eslint_d,
     builtins.diagnostics.markdownlint,
-    builtins.diagnostics.shellcheck,
 
     -- code actions
     builtins.code_actions.eslint_d,

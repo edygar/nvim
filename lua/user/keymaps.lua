@@ -83,9 +83,6 @@ keymap("n", "<leader>cn", "<cmd>let @* = expand('%:t')<CR>", opts)
 -- (v)im (r)eload
 keymap("n", "<leader>vr", '<cmd>lua require("user.reload").reload()<CR>', opts)
 
--- Visual --
-keymap("v", "p", '"_dP', opts)
-
 -- Terminal --
 -- Better terminal navigation
 keymap("t", "<C-h>", [[ <esc><esc><C-w>h ]], term_opts)
@@ -124,4 +121,15 @@ M.show_documentation = function()
   end
 end
 
+vim.cmd [[
+  function! s:GotoFirstFloat() abort
+    for w in range(1, winnr('$'))
+      let c = nvim_win_get_config(win_getid(w))
+      if c.focusable && !empty(c.relative)
+        execute w . 'wincmd w'
+      endif
+    endfor
+  endfunction
+  noremap <c-w><space> :<c-u>call <sid>GotoFirstFloat()<cr>
+]]
 return M

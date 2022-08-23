@@ -91,14 +91,15 @@ wk.register({
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w<CR>", "Write" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No HL" },
-  ["/"] = { '<cmd>lua require("Comment.api").toggle_current_linewise()<CR>', "Comment" },
+  ["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" },
   -- ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 
   ["z"] = { "<cmd>ZenMode<cr>", "Zen" },
   ["gy"] = "Link",
 
-  ["R"] = { ":silent only | Jaq<cr>", "Jaq" },
+  R = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", "Refactor" },
+
   p = {
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -122,8 +123,6 @@ wk.register({
     r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
     w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
     f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
-    b = { "<cmd>lua require('refactoring').refactor('Extract Block')<cr>", "Extract Block" },
-    B = { "<cmd>lua require('refactoring').refactor('Extract Block To File')<cr>", "Extract Block To File" },
   },
 
   d = {
@@ -283,17 +282,11 @@ wk.register({
 
 -- Visual mapping
 wk.register({
-  ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Comment" },
+  ["/"] = { '<esc><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<cr>', "Comment" },
   s = { "<esc><cmd>'<,'>SnipRun<cr>", "Run range" },
-  r = {
-    name = "Refactoring",
-    e = { "<cmd>lua require('refactoring').refactor('Extract Function')<cr>", "Extract Function" },
-    f = { "<cmd>lua require('refactoring').refactor('Extract Function To File')<cr>", "Extract Function To File" },
-    v = { "<cmd>lua require('refactoring').refactor('Extract Variable')<cr>", "Extract Variable" },
-    i = { "<cmd>lua require('refactoring').refactor('Inline Variable')<cr>", "Inline Variable" },
-  },
+  R = { "<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", "Refactor" },
 }, {
-  mode = "v", -- VISUAL mode
+  mode = "x", -- VISUAL mode
   prefix = "<leader>",
   buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
   silent = true, -- use `silent` when creating keymaps
