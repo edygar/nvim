@@ -180,9 +180,9 @@ wk.register({
       "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
       "Undo Stage Hunk",
     },
-    o = { "<cmd>lua require('user.delta-git-commmits').git_status()<cr>", "Open changed file" },
+    o = { "<cmd>lua require('user.delta-git').git_status()<cr>", "Open changed file" },
     b = { "<cmd>UserTelescope git_branches<cr>", "Checkout branch" },
-    c = { "<cmd>lua require('user.delta-git-commmits').git_commits()<cr>", "Checkout commit" },
+    c = { "<cmd>lua require('user.delta-git').git_commits()<cr>", "Checkout commit" },
     d = {
       "<cmd>Gitsigns diffthis HEAD<cr>",
       "Diff",

@@ -15,6 +15,8 @@ vim.cmd [[
   set norelativenumber
 
   nmap <silent> q :qa!<CR>
+  nmap <silent> i :qa!<CR>
+  nmap <silent> I :qa!<CR>
   autocmd TermEnter * stopinsert
   autocmd TermClose * normal G
 ]]

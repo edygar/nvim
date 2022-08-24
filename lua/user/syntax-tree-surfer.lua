@@ -9,12 +9,12 @@ M.config = function()
 
   -- Normal Mode Swapping:
   -- Swap The Master Node relative to the cursor with it's siblings, Dot Repeatable
-  keymap("n", "<e", function()
+  keymap("n", "[E", function()
     vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
     return "g@l"
   end, { silent = true, expr = true })
 
-  keymap("n", ">e", function()
+  keymap("n", "]E", function()
     vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
     return "g@l"
   end, { silent = true, expr = true })
@@ -40,8 +40,8 @@ M.config = function()
   keymap("x", "<Left>", "<cmd>STSSelectParentNode<cr>", opts)
 
   -- Swapping Nodes in Visual Mode
-  keymap("x", "<e", "`<<esc><e", { silent = true, expr = true })
-  keymap("x", ">e", "`<<esc>>e", { silent = true, expr = true })
+  keymap("x", "[E", "`<<esc>[e", { silent = true, expr = true })
+  keymap("x", "]E", "`<<esc>]e", { silent = true, expr = true })
 end
 
 return M
