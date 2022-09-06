@@ -21,8 +21,8 @@ keymap("n", "<C-i>", "<C-i>", opts)
 --   command_mode = "c",
 
 -- Normal --
-vim.api.nvim_set_keymap("n", "K", ":lua require('user.keymaps').show_documentation()<CR>", opts)
-vim.api.nvim_set_keymap("n", "<tab>", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", opts)
+keymap("n", "K", ":lua require('user.functions').show_documentation()<CR>", opts)
+keymap("n", "<tab>", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", opts)
 
 -- Better window management
 -- Window navigation
@@ -94,7 +94,7 @@ keymap("t", "<C-l>", [[ <esc><esc><C-w>l ]], term_opts)
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
 keymap("n", "<A-q>", "<cmd>lua require('user.functions').smart_quit()<CR>", opts)
 keymap("n", "<A-w>", "<cmd>:w<CR>", opts)
-keymap("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], opts)
+keymap("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>gv<ESC>]], opts)
 keymap("n", "<C-p>", "<cmd>UserTelescope find_files<CR>", opts)
 
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
@@ -107,19 +107,6 @@ vim.cmd [[
     execute ":'<,'>normal @".nr2char(getchar())
   endfunction
 ]]
-
-M.show_documentation = function()
-  local filetype = vim.bo.filetype
-  if vim.tbl_contains({ "vim", "help" }, filetype) then
-    vim.cmd("h " .. vim.fn.expand "<cword>")
-  elseif vim.tbl_contains({ "man" }, filetype) then
-    vim.cmd("Man " .. vim.fn.expand "<cword>")
-  elseif vim.fn.expand "%:t" == "Cargo.toml" then
-    require("crates").show_popup()
-  else
-    vim.lsp.buf.hover()
-  end
-end
 
 vim.cmd [[
   function! s:GotoFirstFloat() abort

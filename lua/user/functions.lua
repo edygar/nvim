@@ -102,17 +102,37 @@ end
 
 function M.smart_quit()
   local bufnr = vim.api.nvim_get_current_buf()
+
   local modified = vim.api.nvim_buf_get_option(bufnr, "modified")
   if modified then
     vim.ui.input({
       prompt = "You have unsaved changes. Quit anyway? (y/n) ",
     }, function(input)
       if input == "y" then
-        vim.cmd "q!"
+        vim.cmd "Bdelete! this"
       end
     end)
   else
-    vim.cmd "q!"
+    vim.cmd "Bdelete this"
+  end
+
+  vim.cmd [[
+    if winnr('$') == 1 && getline(1, '$') == [''] && bufname('%') == ''
+      quit
+    else
+  ]]
+end
+
+M.show_documentation = function()
+  local filetype = vim.bo.filetype
+  if vim.tbl_contains({ "vim", "help" }, filetype) then
+    vim.cmd("h " .. vim.fn.expand "<cword>")
+  elseif vim.tbl_contains({ "man" }, filetype) then
+    vim.cmd("Man " .. vim.fn.expand "<cword>")
+  elseif vim.fn.expand "%:t" == "Cargo.toml" then
+    require("crates").show_popup()
+  else
+    vim.lsp.buf.hover()
   end
 end
 

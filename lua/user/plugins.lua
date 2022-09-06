@@ -130,7 +130,7 @@ return packer.startup(function(use)
   use "folke/which-key.nvim"
   use "folke/zen-mode.nvim"
   use "folke/todo-comments.nvim"
-  use "andymass/vim-matchup"
+  --[[ use "andymass/vim-matchup" ]]
   use "is0n/jaq-nvim"
 
   -- Colorschemes

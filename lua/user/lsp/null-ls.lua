@@ -5,6 +5,13 @@ end
 
 local builtins = null_ls.builtins
 
+local root_has_files = function(...)
+  local files = ...
+  return function(utils)
+    return utils.root_has_file(files)
+  end
+end
+
 -- https://github.com/prettier-solidity/prettier-plugin-solidity
 -- npm install --save-dev prettier prettier-plugin-solidity
 null_ls.setup {
@@ -12,17 +19,26 @@ null_ls.setup {
   sources = {
     builtins.formatting.prettierd.with {
       extra_filetypes = { "toml", "solidity" },
+      condition = function(utils)
+        return not utils.root_has_file { "deno.json", "deno.jsonc" }
+      end,
     },
-    builtins.formatting.eslint_d,
+    builtins.formatting.eslint_d.with {
+      condition = root_has_files { "package.json", ".eslintrc*" },
+    },
     builtins.formatting.stylua,
     builtins.formatting.shfmt,
 
     -- diagnostics
-    builtins.diagnostics.eslint_d,
+    builtins.diagnostics.eslint_d.with {
+      condition = root_has_files { "package.json", ".eslintrc*" },
+    },
     builtins.diagnostics.markdownlint,
 
     -- code actions
-    builtins.code_actions.eslint_d,
+    builtins.code_actions.eslint_d.with {
+      condition = root_has_files { "package.json", ".eslintrc*" },
+    },
     builtins.code_actions.refactoring,
 
     -- hover
