@@ -119,7 +119,7 @@ function M.smart_quit()
   vim.cmd [[
     if winnr('$') == 1 && getline(1, '$') == [''] && bufname('%') == ''
       quit
-    else
+    endif
   ]]
 end
 

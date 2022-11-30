@@ -117,7 +117,12 @@ return packer.startup(function(use)
   -- UI
   use "stevearc/dressing.nvim"
   use "ghillb/cybu.nvim"
-  use "tversteeg/registers.nvim"
+  use {
+    "tversteeg/registers.nvim",
+    config = function()
+      require("user.registers").config()
+    end,
+  }
   use "rcarriga/nvim-notify"
   use "kyazdani42/nvim-web-devicons"
   use "kyazdani42/nvim-tree.lua"
@@ -130,7 +135,7 @@ return packer.startup(function(use)
   use "folke/which-key.nvim"
   use "folke/zen-mode.nvim"
   use "folke/todo-comments.nvim"
-  --[[ use "andymass/vim-matchup" ]]
+  use "andymass/vim-matchup"
   use "is0n/jaq-nvim"
 
   -- Colorschemes
@@ -247,6 +252,12 @@ return packer.startup(function(use)
   use "f-person/git-blame.nvim"
   use "ruifm/gitlinker.nvim"
   use "mattn/vim-gist"
+  use {
+    "sindrets/diffview.nvim",
+    config = function()
+      require("user.diffview").config()
+    end,
+  }
   use "mattn/webapi-vim"
 
   -- DAP

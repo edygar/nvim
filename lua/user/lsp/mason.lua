@@ -29,7 +29,6 @@ mason_lspconfig.setup {
     "jdtls",
     "jsonls",
     "solc",
-    "solidity_ls",
     "sumneko_lua",
     "tflint",
     "terraformls",
