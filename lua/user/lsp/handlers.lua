@@ -82,7 +82,6 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "=", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "H", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
@@ -90,6 +89,25 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+
+  vim.api.nvim_buf_set_keymap(
+    bufnr,
+    "n",
+    "=",
+    [[<cmd>lua require("user.lsp.handlers").format({ async = false })<CR>]],
+    opts
+  )
+end
+
+M.format = function(config)
+  vim.lsp.buf.format(vim.tbl_extend("force", config or {}, {
+    filter = function(c)
+      if c.name == "null-ls" and #vim.lsp.get_active_clients { name = "denols", bufnr = 0 } == 0 then
+        return true
+      end
+      return c.name == "denols"
+    end,
+  }))
 end
 
 M.on_attach = function(client, bufnr)
@@ -118,7 +136,8 @@ function M.enable_format_on_save(silent)
   vim.cmd [[
     augroup format_on_save
       autocmd! 
-      autocmd BufWritePre * lua vim.lsp.buf.format({ async = true }) 
+      autocmd BufWritePre * lua require("user.lsp.handlers").format({ async = true }) 
+      
     augroup end
   ]]
   if not silent then

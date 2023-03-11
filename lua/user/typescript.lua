@@ -8,7 +8,7 @@ M.config = function(opts)
   end
 
   vim.api.nvim_create_user_command("Jest", function()
-    vim.cmd [[ :silent !tmux split-window -h -l "40\%" -d bash -c "npm test -- --watch %" ]]
+    vim.cmd [[ :silent !tmux split-window -h -l "40\%" -d bash -c "pnpm test-optimus --watch %" ]]
   end, { nargs = "?" })
 
   local mappings = {

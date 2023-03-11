@@ -78,7 +78,7 @@ M.config = function()
           behavior = cmp.ConfirmBehavior.Insert,
           select = true,
         },
-        { "i", "c" }
+        { "i" }
       ),
 
       ["<c-space>"] = cmp.mapping {

@@ -5,37 +5,27 @@ end
 
 local builtins = null_ls.builtins
 
-local root_has_files = function(...)
-  local files = ...
-  return function(utils)
-    return utils.root_has_file(files)
-  end
-end
-
 null_ls.setup {
   debug = false,
   sources = {
-    builtins.formatting.prettier_d_slim.with {
-      extra_filetypes = { "toml", "solidity" },
-    },
-    builtins.formatting.eslint_d.with {
-      condition = root_has_files { ".eslintrc*" },
-    },
+    builtins.formatting.eslint_d,
     builtins.formatting.stylua,
     builtins.formatting.shfmt,
+    builtins.formatting.prettierd.with {
+      extra_filetypes = { "toml", "solidity", "prisma" },
+    },
 
     -- diagnostics
-    builtins.diagnostics.eslint_d.with {
-      condition = root_has_files {".eslintrc*" },
-    },
+    builtins.diagnostics.eslint_d.u,
     builtins.diagnostics.markdownlint,
 
     -- code actions
-    builtins.code_actions.eslint_d.with {
-      condition = root_has_files { ".eslintrc*" },
-    },
-
+    builtins.code_actions.refactoring,
     -- hover
+    builtins.code_actions.eslint_d,
+
     builtins.hover.dictionary,
+
+    require("typescript.extensions.null-ls.code-actions"),
   },
 }

@@ -195,6 +195,9 @@ return packer.startup(function(use)
   -- use "rmagatti/goto-preview"
   use "nvim-lua/lsp_extensions.nvim"
 
+  -- MDX
+  use "jxnblk/vim-mdx-js"
+
   -- Java
   use "mfussenegger/nvim-jdtls"
 
@@ -203,7 +206,12 @@ return packer.startup(function(use)
   use "Saecki/crates.nvim"
 
   -- Typescript TODO: set this up, also add keybinds to ftplugin
-  use "jose-elias-alvarez/typescript.nvim"
+  use {
+    "jose-elias-alvarez/typescript.nvim",
+    config = function()
+      require("typescript").setup {}
+    end,
+  }
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"

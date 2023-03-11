@@ -29,7 +29,6 @@ mason_lspconfig.setup {
     "jdtls",
     "jsonls",
     "solc",
-    "sumneko_lua",
     "tflint",
     "terraformls",
     "tsserver",
@@ -61,18 +60,6 @@ mason_lspconfig.setup_handlers {
     local loaded_custom, custom_config = pcall(require, "user.lsp.settings." .. server_name)
     if loaded_custom then
       opts = vim.tbl_deep_extend("force", opts, custom_config) or opts
-    end
-
-    if server_name == "sumneko_lua" then
-      local l_status_ok, lua_dev = pcall(require, "lua-dev")
-      if not l_status_ok then
-        return
-      end
-      local luadev = lua_dev.setup {
-        lspconfig = opts,
-      }
-      lspconfig.sumneko_lua.setup(luadev)
-      return
     end
 
     lspconfig[server_name].setup(opts)
